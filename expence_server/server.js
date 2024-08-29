@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 app.use(logger());
 
-app.use("/user", userRoutes);
+app.use("/customers", userRoutes);
 app.use("/category", categoryRoutes);
 
 app.listen(PORT, () => {
