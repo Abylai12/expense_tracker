@@ -1,6 +1,7 @@
 import React from "react";
 
 const Login = ({ magic, handleChange, handleLogin, form }) => {
+  console.log("form", form);
   return (
     <div
       className=" 
@@ -68,7 +69,7 @@ const Login = ({ magic, handleChange, handleLogin, form }) => {
           onChange={handleChange}
         />
       </label>
-      <label
+      {/* <label
         className={`${magic} input input-bordered flex items-center gap-2`}
       >
         <svg
@@ -91,7 +92,7 @@ const Login = ({ magic, handleChange, handleLogin, form }) => {
           value={form.re_password}
           onChange={handleChange}
         />
-      </label>
+      </label> */}
       <button className="btn btn-primary btn-wide" onClick={handleLogin}>
         Log in
       </button>

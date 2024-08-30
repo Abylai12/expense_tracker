@@ -8,11 +8,11 @@ import { useState } from "react";
 const SignUp = () => {
   const [type, setType] = useState(false);
   const [form, setForm] = useState({
-    name: "",
     email: "",
+    name: "",
     password: "",
-    re_password: "",
   });
+  // re_password: "",
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,7 +25,7 @@ const SignUp = () => {
   const postCustomerData = async () => {
     const { name, email, password, re_password } = form;
     if (!name || !email || !password || !re_password) {
-      return console.log("password aldaa"); // Stop the function if any field is empty
+      return console.log("password aldaa");
     }
     const newCustomer = {
       name,
@@ -42,7 +42,6 @@ const SignUp = () => {
         body: JSON.stringify(newCustomer),
       });
 
-      // Handle the response (e.g., check if the request was successful)
       if (res.ok) {
         const data = await res.json();
         console.log("Customer created successfully:", data);
@@ -66,7 +65,6 @@ const SignUp = () => {
           body: JSON.stringify(form),
         }
       );
-      console.log("form", form);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -75,6 +73,7 @@ const SignUp = () => {
   const handleLogin = () => {
     type ? postCustomerData() : updateCustomerData();
   };
+  console.log("form", form);
 
   return (
     <div className="flex justify-center items-center flex-col h-screen">

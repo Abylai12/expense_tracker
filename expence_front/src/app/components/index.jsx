@@ -1,8 +1,53 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Login from "./login";
 import Link from "next/link";
 
 const LoggingPage = () => {
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prevForm) => ({
+      ...prevForm,
+      [name]: value,
+    }));
+    console.log("handle", form);
+  };
+  const handleLogin = () => {
+    postCustomerData();
+  };
+  const postCustomerData = async () => {
+    const { email, password } = form;
+    if (!email || !password) {
+      return console.log("password aldaa"); // Stop the function if any field is empty
+    }
+    const user = {
+      email,
+      password,
+    };
+
+    try {
+      const res = await fetch("http://localhost:8008/customers", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        console.log("Customer created successfully:", data);
+      } else {
+        console.error("Failed to create customer:", res.statusText);
+      }
+    } catch (error) {
+      console.error("Error occurred while creating customer:", error);
+    }
+  };
   return (
     <div className="flex justify-center items-center flex-col h-screen">
       <div className=" flex justify-center items-center  gap-4 flex-col">
@@ -14,7 +59,12 @@ const LoggingPage = () => {
           Welcome back, Please enter your details
         </p>
       </div>
-      <Login magic="hidden" />
+      <Login
+        magic="hidden"
+        handleChange={handleChange}
+        form={form}
+        handleLogin={handleLogin}
+      />
       <div className="flex justify-center items-center">
         <span className="mr-3">Don't have account?</span>
         <Link href="/sign" className="text-purple-600">
