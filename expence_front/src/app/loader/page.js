@@ -1,9 +1,9 @@
-import LoggingPage from "./components/log";
+import Loader from "../components/loader/loader";
 
 export default function Home() {
   return (
     <main>
-      <LoggingPage />
+      <Loader />
     </main>
   );
 }
