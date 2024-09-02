@@ -1,4 +1,5 @@
 const sql = require("../config/db");
+const bcrypt = require("bcrypt");
 
 const getAllCustomer = async (req, res) => {
   try {
@@ -11,10 +12,10 @@ const getAllCustomer = async (req, res) => {
 };
 const createCustomer = async (req, res) => {
   const { email, name, password } = req.body;
-
+  const hashedPassword = bcrypt.hashSync(password, 10);
   try {
     const data =
-      await sql`INSERT INTO customers (email, name, password) VALUES(${email}, ${name}, ${password})`;
+      await sql`INSERT INTO customers (email, name, password) VALUES(${email}, ${name}, ${hashedPassword})`;
     console.log("data:", data);
     res.status(201).json({ data });
   } catch (error) {
