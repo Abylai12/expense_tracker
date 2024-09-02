@@ -7,7 +7,7 @@ import { useState } from "react";
 import Login from "./login";
 
 const SignUp = () => {
-  const [type, setType] = useState(false);
+  const [type, setType] = useState(true);
   const [form, setForm] = useState({
     email: "",
     name: "",
@@ -24,8 +24,8 @@ const SignUp = () => {
     console.log("handle", form);
   };
   const postCustomerData = async () => {
-    const { name, email, password, re_password } = form;
-    if (!name || !email || !password || !re_password) {
+    const { name, email, password } = form;
+    if (!name || !email || !password) {
       return console.log("password aldaa");
     }
     const newCustomer = {
@@ -35,7 +35,7 @@ const SignUp = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:8008/customers", {
+      const res = await fetch("http://localhost:8008/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

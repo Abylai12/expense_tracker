@@ -3,8 +3,10 @@ import React, { useState } from "react";
 
 import Link from "next/link";
 import Login from "./login";
+import { useRouter } from "next/navigation";
 
 const LoggingPage = () => {
+  const router = useRouter();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -32,7 +34,7 @@ const LoggingPage = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:8008/customers", {
+      const res = await fetch("http://localhost:8008/auth/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,9 +43,10 @@ const LoggingPage = () => {
       });
       if (res.ok) {
         const data = await res.json();
-        console.log("Customer created successfully:", data);
+        console.log("Customer sign in  successfully:", data);
+        router.push("/loader");
       } else {
-        console.error("Failed to create customer:", res.statusText);
+        console.error("Failed customer:", res.statusText);
       }
     } catch (error) {
       console.error("Error occurred while creating customer:", error);
@@ -69,7 +72,7 @@ const LoggingPage = () => {
 
       <div className="flex justify-center items-center">
         <span className="mr-3">Don't have account?</span>
-        <Link href="/sign" className="text-purple-600">
+        <Link href="/signup" className="text-purple-600">
           Sign up
         </Link>
       </div>
