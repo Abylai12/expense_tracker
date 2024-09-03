@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const { auth } = require("../middleware/auth");
 const {
   getAllCustomer,
   createCustomer,
@@ -8,7 +9,7 @@ const {
 
 const router = Router();
 
-router.route("/").get(getAllCustomer).post(createCustomer);
+router.route("/").get(auth, getAllCustomer).post(createCustomer);
 
 router.route("/:id").put(updateCustomer).delete(deleteCustomer);
 

@@ -1,7 +1,7 @@
 import React from "react";
 
 const Login = ({ magic, handleChange, handleLogin, form }) => {
-  console.log("form", form);
+  // console.log("form", form);
   return (
     <div
       className=" 

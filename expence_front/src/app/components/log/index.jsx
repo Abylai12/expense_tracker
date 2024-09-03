@@ -4,8 +4,10 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Login from "./login";
 import { useRouter } from "next/navigation";
+import Loader from "../loader/loader";
 
 const LoggingPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const [form, setForm] = useState({
     email: "",
@@ -18,7 +20,6 @@ const LoggingPage = () => {
       ...prevForm,
       [name]: value,
     }));
-    console.log("handle", form);
   };
   const handleLogin = () => {
     postCustomerData();
@@ -34,6 +35,7 @@ const LoggingPage = () => {
     };
 
     try {
+      setIsLoading(true);
       const res = await fetch("http://localhost:8008/auth/signin", {
         method: "POST",
         headers: {
@@ -44,11 +46,13 @@ const LoggingPage = () => {
       if (res.ok) {
         const data = await res.json();
         console.log("Customer sign in  successfully:", data);
-        router.push("/loader");
+        setIsLoading(false);
+        router.push("/dashboard");
       } else {
         console.error("Failed customer:", res.statusText);
       }
     } catch (error) {
+      setIsLoading(false);
       console.error("Error occurred while creating customer:", error);
     }
   };
@@ -63,12 +67,16 @@ const LoggingPage = () => {
           Welcome back, Please enter your details
         </p>
       </div>
-      <Login
-        magic="hidden"
-        handleChange={handleChange}
-        form={form}
-        handleLogin={handleLogin}
-      />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Login
+          magic="hidden"
+          handleChange={handleChange}
+          form={form}
+          handleLogin={handleLogin}
+        />
+      )}
 
       <div className="flex justify-center items-center">
         <span className="mr-3">Don't have account?</span>

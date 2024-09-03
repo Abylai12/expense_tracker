@@ -5,8 +5,10 @@ import React from "react";
 import Link from "next/link";
 import { useState } from "react";
 import Login from "./login";
+import { useRouter } from "next/navigation";
 
 const SignUp = () => {
+  const router = useRouter();
   const [type, setType] = useState(true);
   const [form, setForm] = useState({
     email: "",
@@ -46,6 +48,7 @@ const SignUp = () => {
       if (res.ok) {
         const data = await res.json();
         console.log("Customer created successfully:", data);
+        router.push("/");
       } else {
         console.error("Failed to create customer:", res.statusText);
       }

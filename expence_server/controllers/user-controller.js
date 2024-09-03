@@ -2,8 +2,9 @@ const sql = require("../config/db");
 const bcrypt = require("bcrypt");
 
 const getAllCustomer = async (req, res) => {
+  const hh = req.user;
   try {
-    const data = await sql`SELECT * FROM customers`;
+    const data = await sql`SELECT * FROM customers WHERE id = ${hh}`;
     console.log("data:", data);
     res.status(200).json({ message: "success", objectData: data });
   } catch (error) {
