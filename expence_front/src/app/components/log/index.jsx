@@ -44,8 +44,9 @@ const LoggingPage = () => {
         body: JSON.stringify(user),
       });
       if (res.ok) {
-        const data = await res.json();
-        console.log("Customer sign in  successfully:", data);
+        const { token } = await res.json();
+        console.log("Customer sign in  successfully:", token);
+        localStorage.setItem("token", token);
         setIsLoading(false);
         router.push("/dashboard");
       } else {

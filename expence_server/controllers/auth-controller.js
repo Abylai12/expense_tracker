@@ -1,7 +1,6 @@
 const sql = require("../config/db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
 
 const signin = async (req, res) => {
   const { email, password } = req.body;
@@ -15,7 +14,7 @@ const signin = async (req, res) => {
       if (!isCheck) {
         res.status(400).json({ message: "Not match user email or password" });
       } else {
-        const token = jwt.sign({ id: user.id }, "JWTPASS", {
+        const token = jwt.sign({ id: user.id }, "JWT_TOKEN_PASS1234", {
           expiresIn: "1h",
         });
         res.status(200).json({ message: "success", token });
