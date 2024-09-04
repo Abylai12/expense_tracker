@@ -21,7 +21,7 @@ app.use("/auth", authRoutes);
 app.use("/customers", userRoutes);
 app.use("/category", categoryRoutes);
 app.use("/record", recordRoutes);
-app.use("/complex", recordRoutes);
+app.use("/stat", catRecRoutes);
 
 app.listen(PORT, () => {
   console.log(`server ${PORT} deer aslaa`);

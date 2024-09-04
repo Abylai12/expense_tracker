@@ -4,6 +4,6 @@ const { getCatRecData } = require("../controllers/catRec-controller");
 
 const router = Router();
 
-router.route("/").get(auth, getCatRecData);
+router.route("/data").get(auth, getCatRecData);
 
 module.exports = router;
