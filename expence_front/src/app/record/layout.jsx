@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../dashboard/header";
+import Header from "../components/dashboard/header";
 
 const Layout = ({ children }) => {
   return (

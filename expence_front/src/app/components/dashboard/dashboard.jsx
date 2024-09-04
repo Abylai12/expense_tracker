@@ -23,9 +23,9 @@ const Dashboard = () => {
       console.error("Error fetching user data:", error);
     }
   };
-  useEffect(() => {
-    currentCustomerData();
-  }, []);
+  // useEffect(() => {
+  //   currentCustomerData();
+  // }, []);
 
   return (
     <div className="max-w-[1200px] m-auto">

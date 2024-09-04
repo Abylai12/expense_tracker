@@ -8,6 +8,7 @@ const authRoutes = require("./routes/auth-route");
 const userRoutes = require("./routes/user-route");
 const categoryRoutes = require("./routes/category-route");
 const recordRoutes = require("./routes/record-route");
+const catRecRoutes = require("./routes/catRec-route");
 
 const PORT = process.env.PORT;
 const app = express();
@@ -20,6 +21,7 @@ app.use("/auth", authRoutes);
 app.use("/customers", userRoutes);
 app.use("/category", categoryRoutes);
 app.use("/record", recordRoutes);
+app.use("/complex", recordRoutes);
 
 app.listen(PORT, () => {
   console.log(`server ${PORT} deer aslaa`);

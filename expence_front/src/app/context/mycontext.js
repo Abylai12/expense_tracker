@@ -6,23 +6,24 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState({
-    userId: "",
+    id: "",
     name: "",
     email: "",
+    profile_img: "",
   });
 
-  const currentUserData = async () => {
+  const currentCustomerData = async () => {
+    const token = localStorage.getItem("token");
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:8008/auth/signup", {
+      const response = await fetch("http://localhost:8008/customers", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       if (response.status === 200) {
-        setUser(response.data);
-        console.log("USER", response.data);
+        const { customer } = await response.json();
+        setUser(customer);
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -30,7 +31,7 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, currentUserData }}>
+    <UserContext.Provider value={{ setUser, user, currentCustomerData }}>
       {children}
     </UserContext.Provider>
   );

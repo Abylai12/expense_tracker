@@ -5,7 +5,8 @@ const getAllCustomer = async (req, res) => {
   const { id } = req.user;
   console.log("token", id);
   try {
-    const customer = await sql`SELECT * FROM customers WHERE id = ${id} `;
+    const [customer] =
+      await sql`SELECT id, name , email, profile_img FROM customers WHERE id = ${id} `;
 
     res.status(200).json({ customer });
   } catch (error) {
