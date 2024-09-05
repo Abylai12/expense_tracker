@@ -7,7 +7,6 @@ import LastRecord from "./lastRecord";
 
 const Dashboard = () => {
   const [transAmount, setTransAmount] = useState([]);
-  const [expenseCat, setExpenseCat] = useState([]);
   const currentCustomerData = async () => {
     const token = localStorage.getItem("token");
     try {
@@ -25,7 +24,7 @@ const Dashboard = () => {
           latestFiveRecords,
         } = await response.json();
         setTransAmount(dayTrans);
-        setExpenseCat(weekCategoryTrans);
+
         console.log(
           "USER",
           totalTransType,
@@ -38,7 +37,6 @@ const Dashboard = () => {
       console.error("Error fetching user data:", error);
     }
   };
-  console.log("incAmount", transAmount);
 
   useEffect(() => {
     currentCustomerData();
@@ -51,7 +49,7 @@ const Dashboard = () => {
         <Card />
       </div>
       <div className="flex">
-        <CardStat transAmount={transAmount} expenseCat={expenseCat} />
+        <CardStat />
       </div>
       <LastRecord />
     </div>

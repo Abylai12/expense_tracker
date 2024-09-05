@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "date-fns": "^3.6.0",
-    "highcharts": "^11.4.8",
     "next": "14.2.6",
     "react": "^18",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18"
   },
   "devDependencies": {

@@ -1,150 +1,40 @@
 "use client";
+import { Bar } from "react-chartjs-2";
+import { Chart as ChartJS } from "chart.js/auto";
 
-import { format } from "date-fns";
-import React, { useEffect, useState } from "react";
-import Highcharts from "highcharts";
-
-const CardStat = ({ transAmount, expenseCat }) => {
-  const lbl = transAmount.map((tr) => `W${format(tr.w, "d")}`);
-  console.log(
-    "LBL",
-    transAmount.filter((tr) => tr.transaction_type === "EXP")
-  );
-  const charts = () => {
-    Highcharts.chart("container_01", {
-      chart: {
-        type: "column",
-      },
-      title: {
-        text: "Income and Expenses",
-        align: "left",
-      },
-      subtitle: {
-        align: "left",
-      },
-      xAxis: {
-        categories: lbl,
-        crosshair: true,
-        accessibility: {
-          description: "Countries",
-        },
-      },
-
-      series: [
-        {
-          name: "INC",
-          data: transAmount
-            .filter((tr) => tr.transaction_type === "INC")
-            .map((tr) => tr.sum),
-        },
-        {
-          name: "EXP",
-          data: transAmount
-            .filter((tr) => tr.transaction_type === "EXP")
-            .map((tr) => tr.sum),
-        },
-      ],
-      credits: {
-        enabled: false, // Disable credits
-      },
-    });
-  };
-
-  // console.log(
-  //   expenseCat.map( ({total_amount, cat_name})=>{
-  //     setName({
-  //       name:cat_name,
-  //       y:total_amount
-  //     })
-  //   } )
-  // );
-
-  console.log(
-    expenseCat.map((tr, { name, y }) => {
-      ({ [name]: tr.cat_name, [y]: tr.total_amount });
-    })
-  );
-
-  const pieChart = () => {
-    Highcharts.chart("container_02", {
-      chart: {
-        type: "pie",
-      },
-      title: {
-        text: "Egg Yolk Composition",
-      },
-      tooltip: {
-        valueSuffix: "%",
-      },
-      subtitle: {
-        text: 'Source:<a href="https://www.mdpi.com/2072-6643/11/3/684/htm" target="_default">MDPI</a>',
-      },
-      plotOptions: {
-        series: {
-          allowPointSelect: true,
-          cursor: "pointer",
-          dataLabels: [
-            {
-              enabled: true,
-              distance: 20,
-            },
-            {
-              enabled: true,
-              distance: -40,
-              format: "{point.percentage:.1f}%",
-              style: {
-                fontSize: "1.2em",
-                textOutline: "none",
-                opacity: 0.7,
-              },
-              filter: {
-                operator: ">",
-                property: "percentage",
-                value: 10,
-              },
-            },
-          ],
-        },
-      },
-      series: [
-        {
-          name: "Percentage",
-          colorByPoint: true,
-          data: [
-            {
-              cat_name: "Water",
-              y: 55.02,
-            },
-            {
-              name: "Fat",
-              y: 26.71,
-            },
-            {
-              name: "Carbohydrates",
-              y: 1.09,
-            },
-            {
-              name: "Protein",
-              y: 15.5,
-            },
-            {
-              name: "Ash",
-              y: 1.68,
-            },
-          ],
-        },
-      ],
-    });
-  };
-
-  useEffect(() => {
-    charts();
-    pieChart();
-  }, [transAmount]);
+const CardStat = () => {
+ 
+  
   return (
     <div>
-      <div id="container_01" style={{ width: "800px", height: "400px" }}></div>
-      <div id="container_02" style={{ width: "800px", height: "400px" }}></div>
+      <Bar data = {
+    labels: labels,
+    datasets: [
+      {
+        label: "My First Dataset",
+        data: [65, 59, 80, 81, 56, 55, 40],
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(255, 159, 64, 0.2)",
+          "rgba(255, 205, 86, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(153, 102, 255, 0.2)",
+          "rgba(201, 203, 207, 0.2)",
+        ],
+        borderColor: [
+          "rgb(255, 99, 132)",
+          "rgb(255, 159, 64)",
+          "rgb(255, 205, 86)",
+          "rgb(75, 192, 192)",
+          "rgb(54, 162, 235)",
+          "rgb(153, 102, 255)",
+          "rgb(201, 203, 207)",
+        ],
+        borderWidth: 1,
+      },
+    ],
+  } />
     </div>
   );
 };
