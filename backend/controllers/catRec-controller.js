@@ -32,7 +32,8 @@ INNER JOIN
 INNER JOIN 
     categories cat ON cat.id = r.category_id 
 WHERE 
-    c.id = ${id} 
+    c.id =${id}
+    AND r.transaction_type='EXP'
 GROUP BY 
     week, cat.name`;
     const latestFiveRecords =

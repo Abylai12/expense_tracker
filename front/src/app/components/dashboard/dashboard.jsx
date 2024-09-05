@@ -1,41 +1,57 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "./card";
 import CardStat from "./cardStat";
 import LastRecord from "./lastRecord";
 
 const Dashboard = () => {
+  const [transAmount, setTransAmount] = useState([]);
+  const [expenseCat, setExpenseCat] = useState([]);
   const currentCustomerData = async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("http://localhost:8008/customers", {
+      const response = await fetch("http://localhost:8008/stat/data", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       if (response.status === 200) {
-        const { customer } = await response.json();
-        console.log("USER", customer);
+        const {
+          totalTransType,
+          dayTrans,
+          weekCategoryTrans,
+          latestFiveRecords,
+        } = await response.json();
+        setTransAmount(dayTrans);
+        setExpenseCat(weekCategoryTrans);
+        console.log(
+          "USER",
+          totalTransType,
+          dayTrans,
+          weekCategoryTrans,
+          latestFiveRecords
+        );
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
   };
-  // useEffect(() => {
-  //   currentCustomerData();
-  // }, []);
+  console.log("incAmount", transAmount);
+
+  useEffect(() => {
+    currentCustomerData();
+  }, []);
 
   return (
-    <div className="max-w-[1200px] m-auto">
+    <div className="max-w-[1200px] m-auto bg-gray-100">
       <div className="flex">
         <Card />
         <Card />
       </div>
       <div className="flex">
-        <CardStat />
-        <CardStat />
+        <CardStat transAmount={transAmount} expenseCat={expenseCat} />
       </div>
       <LastRecord />
     </div>
