@@ -9,10 +9,10 @@ const getCatRecData = async (req, res) => {
     const totalTransType = await sql`SELECT r.transaction_type, SUM(r.amount) 
 FROM records r
  INNER JOIN customers c ON r.customer_id=c.id 
-WHERE c.id='6368a3f5-e868-46d8-ab18-c8794a3821b9'
+WHERE c.id=${id} 
 GROUP BY r.transaction_type`;
     const dayTrans =
-      await sql`SELECT  DATE_TRUNC('day', r.created_at) w, r.transaction_type,
+      await sql`SELECT  date_part('day', r.created_at) w, r.transaction_type,
     SUM(r.amount)
     FROM records r 
     INNER JOIN customers c ON r.customer_id=c.id 
@@ -45,7 +45,7 @@ FROM (
         cat.name, DATE_TRUNC('week', r.created_at)
 ) sub`;
     const latestFiveRecords =
-      await sql`    SELECT r.name, r.amount, r.transaction_type
+      await sql`    SELECT date_part('hour',r.created_at) w, r.name, r.amount, r.transaction_type
     FROM records r 
     INNER JOIN customers c ON r.customer_id=c.id 
     WHERE c.id=${id} 

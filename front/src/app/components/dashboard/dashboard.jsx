@@ -7,6 +7,8 @@ import LastRecord from "./lastRecord";
 
 const Dashboard = () => {
   const [transAmount, setTransAmount] = useState([]);
+  const [dataPie, setDataPie] = useState([]);
+  const [total, setTotal] = useState([]);
   const currentCustomerData = async () => {
     const token = localStorage.getItem("token");
     try {
@@ -24,6 +26,8 @@ const Dashboard = () => {
           latestFiveRecords,
         } = await response.json();
         setTransAmount(dayTrans);
+        setDataPie(weekCategoryTrans);
+        setTotal(totalTransType);
 
         console.log(
           "USER",
@@ -45,11 +49,10 @@ const Dashboard = () => {
   return (
     <div className="max-w-[1200px] m-auto bg-gray-100">
       <div className="flex">
-        <Card />
-        <Card />
+        <Card total={total} />
       </div>
-      <div className="flex">
-        <CardStat />
+      <div className="my-8">
+        <CardStat transAmount={transAmount} dataPie={dataPie} />
       </div>
       <LastRecord />
     </div>
