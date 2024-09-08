@@ -4,11 +4,14 @@ import React, { useEffect, useState } from "react";
 import Card from "./card";
 import CardStat from "./cardStat";
 import LastRecord from "./lastRecord";
+import WalletCard from "./wallet";
 
 const Dashboard = () => {
   const [transAmount, setTransAmount] = useState([]);
   const [dataPie, setDataPie] = useState([]);
   const [total, setTotal] = useState([]);
+  const [latestFive, setLatestFive] = useState([]);
+
   const currentCustomerData = async () => {
     const token = localStorage.getItem("token");
     try {
@@ -28,14 +31,7 @@ const Dashboard = () => {
         setTransAmount(dayTrans);
         setDataPie(weekCategoryTrans);
         setTotal(totalTransType);
-
-        console.log(
-          "USER",
-          totalTransType,
-          dayTrans,
-          weekCategoryTrans,
-          latestFiveRecords
-        );
+        setLatestFive(latestFiveRecords);
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -47,14 +43,31 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="max-w-[1200px] m-auto bg-gray-100">
-      <div className="flex">
-        <Card total={total} />
+    <div className=" bg-gray-100">
+      <div className="max-w-[1200px] m-auto py-8">
+        <div className="flex justify-between">
+          <WalletCard />
+          {total.map(({ sum, transaction_type }) => (
+            <Card
+              sum={new Intl.NumberFormat().format(sum)}
+              transType={transaction_type === "INC" ? "income" : "expense"}
+            />
+          ))}
+        </div>
+        <div className="my-8">
+          <CardStat transAmount={transAmount} dataPie={dataPie} />
+        </div>
+        <div>
+          <h2>latestFiveRecords</h2>
+          {latestFive.map(({ name, amount, transaction_type }) => (
+            <LastRecord
+              name={name}
+              amount={amount}
+              transaction_type={transaction_type}
+            />
+          ))}
+        </div>
       </div>
-      <div className="my-8">
-        <CardStat transAmount={transAmount} dataPie={dataPie} />
-      </div>
-      <LastRecord />
     </div>
   );
 };

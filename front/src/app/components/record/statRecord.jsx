@@ -1,6 +1,6 @@
 import React from "react";
 
-const StatRecord = () => {
+const StatRecord = ({ name, transType, amount, d }) => {
   return (
     <div>
       <div>
@@ -28,12 +28,21 @@ const StatRecord = () => {
         </select>
       </div>
       <h1>Today</h1>
-      <div className="flex items-center">
-        <img src="./images/homeimage.png" alt="img" />
-        <div className="">
-          <h2>If a dog chews shoes whose shoes does he choose?</h2>
-          <p>date</p>
+      <div className="flex justify-between items-center">
+        <div className="flex items-center">
+          <img src="./images/homeimage.png" alt="img" />
+          <div className="ml-4 text-base">
+            <h2>{name}</h2>
+            <p className="text-gray-500 text-sm">{d}</p>
+          </div>
         </div>
+        <p
+          className={`${
+            transType === "INC" ? "text-green-500" : "text-red-500"
+          }`}
+        >
+          {amount}
+        </p>
       </div>
     </div>
   );

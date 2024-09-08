@@ -1,23 +1,30 @@
 "use client";
 
 import { UserContext } from "@/app/context/mycontext";
+import Link from "next/link";
 import React, { useContext, useEffect } from "react";
 
 const Header = () => {
-  const { user, setUser, currentCustomerData } = useContext(UserContext);
+  const { user, currentCustomerData } = useContext(UserContext);
   useEffect(() => {
     currentCustomerData();
   }, []);
 
   const { name } = user;
-  console.log(name);
 
   return (
     <div className="px-[120px] py-4 flex justify-between">
       <div className="flex items-center gap-6">
         <img src="./images/singlelogo.png" alt="img" className="w-10 h-10" />
-        <h1 className="font-semibold text-base text-slate-900">Dashboard</h1>
-        <p className="font-normal text-base text-slate-900">Records</p>
+        <Link
+          href="/dashboard"
+          className="font-semibold text-base text-slate-900"
+        >
+          Dashboard
+        </Link>
+        <Link href="/record" className="font-normal text-base text-slate-900">
+          Records
+        </Link>
       </div>
       <div className="flex gap-6 items-center">
         <button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full">
