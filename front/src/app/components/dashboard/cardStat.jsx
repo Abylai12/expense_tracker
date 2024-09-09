@@ -39,14 +39,14 @@ const CardStat = ({ transAmount, dataPie }) => {
     labels: labels,
     datasets: [
       {
-        label: "My First Dataset",
+        label: "INC",
         data: incLabels,
         backgroundColor: [" rgba(132, 204, 22, 1)"],
         borderColor: [" rgba(132, 204, 22, 1)"],
         borderWidth: 1,
       },
       {
-        label: "My First Dataset",
+        label: "EXP",
         data: expLabels,
         backgroundColor: [" rgba(249, 115, 22, 1)"],
         borderColor: [" rgba(249, 115, 22, 1)"],
@@ -139,13 +139,15 @@ const CardStat = ({ transAmount, dataPie }) => {
         <div className="w-[156px] h-[156px] flex ">
           <Doughnut data={datas} />
           <div className="w-[156px] h-[156px]">
-            {dataPie.map(({ cat_name, total_amount, weekly_percentage }) => (
-              <div className="flex justify-between w-full">
-                <p className="flex-1">{cat_name}</p>
-                <p className="flex-1  ">{total_amount}</p>
-                <p className="flex-1">{weekly_percentage}%</p>
-              </div>
-            ))}
+            {dataPie.map(
+              ({ cat_name, total_amount, weekly_percentage }, idx) => (
+                <div className="flex justify-between w-full" key={idx}>
+                  <p className="flex-1">{cat_name}</p>
+                  <p className="flex-1  ">{total_amount}</p>
+                  <p className="flex-1">{weekly_percentage}%</p>
+                </div>
+              )
+            )}
           </div>
         </div>
       </div>

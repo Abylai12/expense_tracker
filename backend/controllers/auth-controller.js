@@ -21,7 +21,7 @@ const signin = async (req, res) => {
       }
     }
   } catch (error) {
-    res.status(400).json({ error });
+    res.status(401).json({ error });
   }
 };
 const signup = async (req, res) => {

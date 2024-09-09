@@ -1,16 +1,22 @@
 "use client";
 
 import { UserContext } from "@/app/context/mycontext";
+import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import React, { useContext, useEffect } from "react";
 
 const Header = () => {
+  const router = useRouter();
   const { user, currentCustomerData } = useContext(UserContext);
+  const { name } = user;
   useEffect(() => {
     currentCustomerData();
   }, []);
 
-  const { name } = user;
+  if (!localStorage.getItem("token")) {
+    router.push("/");
+  }
 
   return (
     <div className="px-[120px] py-4 flex justify-between">
@@ -34,7 +40,12 @@ const Header = () => {
         <h1>{name}</h1>
         <div className="avatar w-10 h-10">
           <div className="ring-primary ring-offset-base-100 w-24 rounded-full ring ring-offset-2">
-            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            <img
+              src={
+                user?.profile_img ||
+                "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+              }
+            />
           </div>
         </div>
       </div>
