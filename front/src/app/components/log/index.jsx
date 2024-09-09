@@ -1,10 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Link from "next/link";
 import Login from "./login";
 import { useRouter } from "next/navigation";
 import Loader from "../loader/loader";
+import { toast } from "react-toastify";
 
 const LoggingPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,6 +24,7 @@ const LoggingPage = () => {
   };
   const handleLogin = () => {
     postCustomerData();
+    localStorage.removeItem("token");
   };
   const postCustomerData = async () => {
     const { email, password } = form;
@@ -43,20 +45,28 @@ const LoggingPage = () => {
         },
         body: JSON.stringify(user),
       });
-      if (res.ok) {
+      if (res.status === 404) {
+        toast.error("burtgelgui hereglegsh bn", { autoClose: 500 });
+      }
+      if (res.status === 200) {
         const { token } = await res.json();
-        console.log("Customer sign in  successfully:", token);
+        toast.success("User successfully signed in", { autoClose: 500 });
         localStorage.setItem("token", token);
         setIsLoading(false);
         router.push("/dashboard");
       } else {
         console.error("Failed customer:", res.statusText);
+        toast.error("Failed to sign in. Please try again.");
+        setIsLoading(false);
       }
     } catch (error) {
+      toast.error("Failed to sign in. Please try again.", { autoClose: 500 });
       setIsLoading(false);
-      console.error("Error occurred while creating customer:", error);
     }
   };
+  useEffect(() => {
+    localStorage.removeItem("token");
+  }, []);
   return (
     <div className="flex justify-center items-center flex-col h-screen">
       <div className=" flex justify-center items-center  gap-4 flex-col">

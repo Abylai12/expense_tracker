@@ -47,8 +47,9 @@ const Dashboard = () => {
       <div className="max-w-[1200px] m-auto py-8">
         <div className="flex justify-between">
           <WalletCard />
-          {total.map(({ sum, transaction_type }) => (
+          {total.map(({ sum, transaction_type }, idx) => (
             <Card
+              key={idx}
               sum={new Intl.NumberFormat().format(sum)}
               transType={transaction_type === "INC" ? "income" : "expense"}
             />
@@ -59,8 +60,9 @@ const Dashboard = () => {
         </div>
         <div>
           <h2>latestFiveRecords</h2>
-          {latestFive.map(({ name, amount, transaction_type }) => (
+          {latestFive.map(({ name, amount, transaction_type }, idx) => (
             <LastRecord
+              key={idx}
               name={name}
               amount={amount}
               transaction_type={transaction_type}
