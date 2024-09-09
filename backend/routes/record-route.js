@@ -1,6 +1,7 @@
 const { Router } = require("express");
+const { auth } = require("../middleware/auth");
 const {
-  getAllRecord,
+  getCurrentCustomer,
   createRecord,
   updateRecord,
   deleteRecord,
@@ -8,7 +9,7 @@ const {
 
 const router = Router();
 
-router.route("/").get(getAllRecord).post(createRecord);
+router.route("/stat").get(auth, getCurrentCustomer).post(createRecord);
 
 router.route("/:id").put(updateRecord).delete(deleteRecord);
 

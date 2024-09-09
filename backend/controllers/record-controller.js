@@ -1,10 +1,16 @@
 const sql = require("../config/db");
 
-const getAllRecord = async (req, res) => {
+const getCurrentCustomer = async (req, res) => {
+  const { id } = req.user;
   try {
-    const data = await sql`SELECT * FROM records`;
-    console.log("data:", data);
-    res.status(200).json({ message: "success", objectData: data });
+    const newestRecords =
+      await sql`SELECT r.name, r.transaction_type, r.amount, date_part('day', r.created_at) AS d
+FROM records r
+INNER JOIN customers c ON r.customer_id = c.id
+WHERE c.id = ${id}
+ AND  DATE (r.created_at) > current_date - interval '2 day'
+ ORDER BY d DESC`;
+    res.status(200).json({ newestRecords });
   } catch (error) {
     res.status(400).json({ error });
   }
@@ -46,7 +52,7 @@ const deleteRecord = async (req, res) => {
 };
 
 module.exports = {
-  getAllRecord,
+  getCurrentCustomer,
   createRecord,
   updateRecord,
   deleteRecord,

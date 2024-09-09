@@ -1,5 +1,4 @@
 const sql = require("../config/db");
-const bcrypt = require("bcrypt");
 
 const getCatRecData = async (req, res) => {
   const { id } = req.user;
