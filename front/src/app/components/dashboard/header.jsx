@@ -1,7 +1,6 @@
 "use client";
 
 import { UserContext } from "@/app/context/mycontext";
-import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import React, { useContext, useEffect } from "react";
@@ -11,12 +10,13 @@ const Header = () => {
   const { user, currentCustomerData } = useContext(UserContext);
   const { name } = user;
   useEffect(() => {
-    currentCustomerData();
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.push("/");
+    } else {
+      currentCustomerData();
+    }
   }, []);
-
-  if (!localStorage.getItem("token")) {
-    router.push("/");
-  }
 
   return (
     <div className="px-[120px] py-4 flex justify-between">
