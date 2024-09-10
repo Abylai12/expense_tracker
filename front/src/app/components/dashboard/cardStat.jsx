@@ -8,7 +8,6 @@ import {
   CategoryScale,
   ArcElement,
 } from "chart.js";
-import { NEXT_CACHE_REVALIDATE_TAG_TOKEN_HEADER } from "next/dist/lib/constants";
 
 // Registering the necessary components
 ChartJS.register(Tooltip, LinearScale, BarElement, ArcElement, CategoryScale);
@@ -31,6 +30,8 @@ const CardStat = ({ transAmount, dataPie }) => {
     .map((tr) => tr.sum);
 
   const datasPie = dataPie.map((info) => info.weekly_percentage);
+  const datasColor = dataPie.map((info) => info.color);
+  console.log(datasColor);
 
   const catNames = dataPie.map((info) => info.cat_name);
 
@@ -104,19 +105,14 @@ const CardStat = ({ transAmount, dataPie }) => {
       },
     },
   };
+
   const datas = {
     labels: catNames,
     datasets: [
       {
         label: "My First Dataset",
         data: datasPie,
-        backgroundColor: [
-          "rgb(255, 99, 132)",
-          "rgb(54, 162, 235)",
-          "rgb(255, 205, 86)",
-          "rgb(153, 102, 255)",
-          "rgb(190, 02, 55)",
-        ],
+        backgroundColor: datasColor,
         hoverOffset: 2,
       },
     ],
@@ -138,10 +134,14 @@ const CardStat = ({ transAmount, dataPie }) => {
         </h1>
         <div className="w-[156px] h-[156px] flex ">
           <Doughnut data={datas} />
-          <div className="w-[156px] h-[156px]">
+          <div className="">
             {dataPie.map(
-              ({ cat_name, total_amount, weekly_percentage }, idx) => (
-                <div className="flex justify-between w-full" key={idx}>
+              ({ cat_name, total_amount, weekly_percentage, color }, idx) => (
+                <div className="ml-4 flex justify-between w-[500px]" key={idx}>
+                  <div
+                    className={`w-3 h-3 rounded-full`}
+                    style={{ backgroundColor: color }}
+                  ></div>
                   <p className="flex-1">{cat_name}</p>
                   <p className="flex-1  ">{total_amount}</p>
                   <p className="flex-1">{weekly_percentage}%</p>

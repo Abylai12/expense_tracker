@@ -22,6 +22,7 @@ GROUP BY r.transaction_type`;
     w`;
     const weekCategoryTrans = await sql`SELECT
     week,
+    color,
     cat_name,
     total_amount,
     ROUND((total_amount::NUMERIC / weekly_total::NUMERIC) * 100, 2) AS weekly_percentage
@@ -29,6 +30,7 @@ FROM (
     SELECT 
         DATE_TRUNC('week', r.created_at) AS week,
         cat.name AS cat_name,
+        cat.cat_color AS color,
         SUM(r.amount) AS total_amount,
         SUM(SUM(r.amount)) OVER (PARTITION BY DATE_TRUNC('week', r.created_at)) AS weekly_total
     FROM 
@@ -38,10 +40,10 @@ FROM (
     INNER JOIN 
         categories cat ON cat.id = r.category_id 
     WHERE 
-        c.id = ${id} 
+        c.id =${id}
         AND r.transaction_type = 'EXP'
     GROUP BY 
-        cat.name, DATE_TRUNC('week', r.created_at)
+        cat.name, DATE_TRUNC('week', r.created_at), color
 ) sub`;
     const latestFiveRecords =
       await sql`    SELECT date_part('hour',r.created_at) w, r.name, r.amount, r.transaction_type
