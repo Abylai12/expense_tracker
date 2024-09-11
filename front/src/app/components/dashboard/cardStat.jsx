@@ -132,18 +132,25 @@ const CardStat = ({ transAmount, dataPie }) => {
         <h1 className="border-b py-4 px-6 text-base font-semibold">
           Income and Expense
         </h1>
-        <div className="w-[156px] h-[156px] flex ">
-          <Doughnut data={datas} />
-          <div className="">
+        <div className=" flex items-center h-full ">
+          <div className="h-[156px] w-[156px] ml-2">
+            <Doughnut data={datas} />
+          </div>
+          <div className="mr-4">
             {dataPie.map(
               ({ cat_name, total_amount, weekly_percentage, color }, idx) => (
-                <div className="ml-4 flex justify-between w-[500px]" key={idx}>
+                <div
+                  className="ml-4 flex items-center justify-between w-[500px]"
+                  key={idx}
+                >
                   <div
-                    className={`w-3 h-3 rounded-full`}
+                    className={`w-3 h-3 rounded-full mr-2`}
                     style={{ backgroundColor: color }}
                   ></div>
                   <p className="flex-1">{cat_name}</p>
-                  <p className="flex-1  ">{total_amount}</p>
+                  <p className="flex-1  ">
+                    {new Intl.NumberFormat().format(total_amount)}
+                  </p>
                   <p className="flex-1">{weekly_percentage}%</p>
                 </div>
               )

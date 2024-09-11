@@ -3,12 +3,34 @@
 import { UserContext } from "@/app/context/mycontext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import Modal from "../modal/modal";
 
 const Header = () => {
   const router = useRouter();
   const { user, currentCustomerData } = useContext(UserContext);
   const { name } = user;
+  const [openModal, setModalOpen] = useState(false);
+  const [form, setForm] = useState({
+    name: "",
+    amount: "",
+    imgUrl: "",
+    jobTitle: "",
+  });
+
+  const showModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prevForm) => ({
+      ...prevForm,
+      [name]: value,
+    }));
+  };
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -33,9 +55,13 @@ const Header = () => {
         </Link>
       </div>
       <div className="flex gap-6 items-center">
-        <button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full">
-          + Record
-        </button>
+        <Modal
+          openModal={openModal}
+          showModal={showModal}
+          closeModal={closeModal}
+          form={form}
+          handleChange={handleChange}
+        />
 
         <h1>{name}</h1>
         <div className="avatar w-10 h-10">
