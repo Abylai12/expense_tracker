@@ -1,7 +1,6 @@
 import React from "react";
 
 const StatRecord = ({ newest, typeTrans, searchValue }) => {
-  console.log("search", searchValue);
   return (
     <div className="w-full">
       <div className="flex justify-between mb-4">
@@ -24,7 +23,7 @@ const StatRecord = ({ newest, typeTrans, searchValue }) => {
       {newest
         ?.filter(
           (info) =>
-            info?.name.toUpperCase().includes(searchValue) ||
+            info?.name.toLowerCase().includes(searchValue.toLowerCase()) &&
             info?.transaction_type.includes(typeTrans)
         )
         .map(({ name, d, amount, transaction_type }) => (
