@@ -5,7 +5,7 @@ import AddCategory from "./addCategory";
 
 const ActionRecord = () => {
   return (
-    <div>
+    <div className="px-4 py-6 bg-base-100 rounded-xl border-base-200">
       <AddCArd />
       <TransType />
       <AddCategory />
