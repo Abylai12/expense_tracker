@@ -6,6 +6,7 @@ import Login from "./login";
 import { useRouter } from "next/navigation";
 import Loader from "../loader/loader";
 import { toast } from "react-toastify";
+import { apiUrl } from "@/app/utility/utility";
 
 const LoggingPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -38,7 +39,7 @@ const LoggingPage = () => {
 
     try {
       setIsLoading(true);
-      const res = await fetch("http://localhost:8008/auth/signin", {
+      const res = await fetch(`${apiUrl}/auth/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

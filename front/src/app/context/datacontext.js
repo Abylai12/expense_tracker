@@ -1,5 +1,6 @@
 "use client";
 import { createContext, useState } from "react";
+import { apiUrl } from "../utility/utility";
 
 export const DataContext = createContext();
 
@@ -13,7 +14,7 @@ export const DataProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     console.log("token", token);
     try {
-      const response = await fetch("http://localhost:8008/record/stat", {
+      const response = await fetch(`${apiUrl}/record/stat`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -28,7 +29,7 @@ export const DataProvider = ({ children }) => {
   const getCustomerCategories = async () => {
     const token = localStorage.getItem("token");
     try {
-      const res = await fetch("http://localhost:8008/category/customer", {
+      const res = await fetch(`${apiUrl}/category/customer`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (res.status === 200) {

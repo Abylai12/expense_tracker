@@ -5,6 +5,7 @@ import Card from "./card";
 import CardStat from "./cardStat";
 import LastRecord from "./lastRecord";
 import WalletCard from "./wallet";
+import { apiUrl } from "@/app/utility/utility";
 
 const Dashboard = () => {
   const [transAmount, setTransAmount] = useState([]);
@@ -15,7 +16,7 @@ const Dashboard = () => {
   const currentCustomerData = async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("http://localhost:8008/stat/data", {
+      const response = await fetch(`${apiUrl}/stat/data`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

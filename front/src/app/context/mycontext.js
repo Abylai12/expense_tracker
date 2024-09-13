@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useState } from "react";
+import { apiUrl } from "../utility/utility";
 
 export const UserContext = createContext();
 
@@ -16,7 +17,7 @@ export const UserProvider = ({ children }) => {
   const currentCustomerData = async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("http://localhost:8008/customers", {
+      const response = await fetch(`${apiUrl}/customers`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

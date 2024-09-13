@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import Login from "./login";
 import { useRouter } from "next/navigation";
+import { apiUrl } from "@/app/utility/utility";
 
 const SignUp = () => {
   const router = useRouter();
@@ -37,7 +38,7 @@ const SignUp = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:8008/auth/signup", {
+      const res = await fetch(`${apiUrl}/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,16 +60,13 @@ const SignUp = () => {
 
   const updateCustomerData = async () => {
     try {
-      const res = await fetch(
-        `http://localhost:8008/customers/7d2e4e3c-6db1-4d8c-85ca-96fc23d0182f`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(form),
-        }
-      );
+      const res = await fetch(`${apiUrl}/customers`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
     } catch (error) {
       console.error("Error:", error);
     }
