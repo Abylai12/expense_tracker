@@ -1,8 +1,8 @@
-import { UserContext } from "@/app/context/mycontext";
+import { DataContext } from "@/app/context/datacontext";
 import React, { useContext } from "react";
 
 const TransType = () => {
-  const { setTypeTrans } = useContext(UserContext);
+  const { setTypeTrans } = useContext(DataContext);
   return (
     <div className="">
       <h1 className="font-semibold text-base my-6">Types</h1>

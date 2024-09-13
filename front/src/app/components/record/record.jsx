@@ -1,15 +1,21 @@
 "use client";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import ActionRecord from "./control/actionRecord";
 import StatRecord from "./statRecord";
-import { UserContext } from "@/app/context/mycontext";
+import { DataContext } from "@/app/context/datacontext";
 
 const Record = () => {
-  const { newest, getCurrentCustomerRecords, typeTrans, searchValue } =
-    useContext(UserContext);
+  const {
+    newest,
+    getCurrentCustomerRecords,
+    getCustomerCategories,
+    typeTrans,
+    searchValue,
+  } = useContext(DataContext);
 
   useEffect(() => {
     getCurrentCustomerRecords();
+    getCustomerCategories();
   }, []);
   return (
     <div className="bg-gray-100 pt-8 pb-[132px]">

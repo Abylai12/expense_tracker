@@ -8,9 +8,10 @@ import Modal from "../modal/modal";
 
 const Header = () => {
   const router = useRouter();
-  const { user, currentCustomerData } = useContext(UserContext);
+  const { user, currentCustomerData, openModal, setModalOpen } =
+    useContext(UserContext);
   const { name } = user;
-  const [openModal, setModalOpen] = useState(false);
+
   const [form, setForm] = useState({
     name: "",
     amount: "",

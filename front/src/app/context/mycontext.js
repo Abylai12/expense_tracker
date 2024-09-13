@@ -5,9 +5,7 @@ import { createContext, useState } from "react";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [typeTrans, setTypeTrans] = useState("");
-  const [searchValue, setSearchValue] = useState("");
-  const [newest, setNewest] = useState(null);
+  const [openModal, setModalOpen] = useState(false);
   const [user, setUser] = useState({
     id: "",
     name: "",
@@ -32,23 +30,6 @@ export const UserProvider = ({ children }) => {
       console.error("Error fetching user data:", error);
     }
   };
-  const getCurrentCustomerRecords = async () => {
-    const token = localStorage.getItem("token");
-    console.log("token", token);
-    try {
-      const response = await fetch("http://localhost:8008/record/stat", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      if (response.status === 200) {
-        const { newestRecords } = await response.json();
-        console.log("new", newestRecords);
-        setNewest(newestRecords);
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
 
   return (
     <UserContext.Provider
@@ -56,12 +37,8 @@ export const UserProvider = ({ children }) => {
         setUser,
         user,
         currentCustomerData,
-        getCurrentCustomerRecords,
-        newest,
-        typeTrans,
-        setTypeTrans,
-        searchValue,
-        setSearchValue,
+        openModal,
+        setModalOpen,
       }}
     >
       {children}

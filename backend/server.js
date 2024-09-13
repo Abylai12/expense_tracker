@@ -22,6 +22,9 @@ app.use("/customers", userRoutes);
 app.use("/category", categoryRoutes);
 app.use("/record", recordRoutes);
 app.use("/stat", catRecRoutes);
+app.get("/", (_, res) => {
+  res.send("Welcome Expense Tracker API");
+});
 
 app.listen(PORT, () => {
   console.log(`server ${PORT} deer aslaa`);

@@ -1,10 +1,16 @@
 const sql = require("../config/db");
 
-const getAllCategory = async (req, res) => {
+const getCustomerCategory = async (req, res) => {
+  const { id } = req.user;
   try {
-    const data = await sql`SELECT * FROM categories`;
-    console.log("data:", data);
-    res.status(200).json({ message: "success", objectData: data });
+    const categories = await sql`SELECT  cat.name as cat_name, cat.id 
+FROM records r 
+INNER JOIN customers c ON r.customer_id=c.id 
+INNER JOIN categories cat ON cat.id=r.category_id 
+WHERE c.id=${id}
+GROUP BY cat_name, cat.id`;
+    console.log("data:", categories);
+    res.status(200).json({ categories });
   } catch (error) {
     res.status(400).json({ error });
   }
@@ -46,7 +52,7 @@ const deleteCategory = async (req, res) => {
 };
 
 module.exports = {
-  getAllCategory,
+  getCustomerCategory,
   createCategory,
   updateCategory,
   deleteCategory,

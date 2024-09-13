@@ -26,8 +26,11 @@ const StatRecord = ({ newest, typeTrans, searchValue }) => {
             info?.name.toLowerCase().includes(searchValue.toLowerCase()) &&
             info?.transaction_type.includes(typeTrans)
         )
-        .map(({ name, d, amount, transaction_type }) => (
-          <div className="bg-base-100 flex justify-between items-center mb-3 px-6 py-4 rounded-xl ">
+        .map(({ name, d, amount, transaction_type }, idx) => (
+          <div
+            className="bg-base-100 flex justify-between items-center mb-3 px-6 py-4 rounded-xl "
+            key={idx}
+          >
             <div className="flex items-center ">
               <div
                 className={`w-10 h-10 rounded-full bg-blue-700 flex items-center justify-center ${
