@@ -31,7 +31,6 @@ const CardStat = ({ transAmount, dataPie }) => {
 
   const datasPie = dataPie.map((info) => info.weekly_percentage);
   const datasColor = dataPie.map((info) => info.color);
-  console.log(datasColor);
 
   const catNames = dataPie.map((info) => info.cat_name);
 

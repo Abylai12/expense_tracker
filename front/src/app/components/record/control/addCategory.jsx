@@ -1,9 +1,9 @@
 import { DataContext } from "@/app/context/datacontext";
 import React, { useContext } from "react";
+import CatModal from "../../modal/catModal";
 
 const AddCategory = () => {
   const { catDatas } = useContext(DataContext);
-  console.log("first", catDatas);
   return (
     <div>
       <div className="flex justify-between">
@@ -11,8 +11,8 @@ const AddCategory = () => {
         <button>clear</button>
       </div>
       <div className=" ml-4">
-        {catDatas?.map(({ cat_name }) => (
-          <div className="flex items-center">
+        {catDatas?.map(({ cat_name }, idx) => (
+          <div className="flex items-center" key={idx}>
             <img
               src="./images/catImg.png"
               alt="img"
@@ -23,9 +23,8 @@ const AddCategory = () => {
             </div>
           </div>
         ))}
-        <button className="text-base font-normal">
-          <span className="text-blue-700">+</span> Add Category
-        </button>
+
+        <CatModal />
       </div>
     </div>
   );

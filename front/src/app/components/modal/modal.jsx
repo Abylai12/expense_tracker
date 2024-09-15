@@ -1,5 +1,7 @@
 "use client";
-import { useState } from "react";
+import { RecordContext } from "@/app/context/addRecord-context";
+import { DataContext } from "@/app/context/datacontext";
+import { useContext, useState } from "react";
 
 const Modal = ({
   showModal,
@@ -78,6 +80,21 @@ export const RightInput = ({
   setColorTrans,
   colorTrans,
 }) => {
+  const { catDatas } = useContext(DataContext);
+  const { setRecordForm } = useContext(RecordContext);
+  const handleSelected = (e) => {
+    setRecordForm((preRecordForm) => ({
+      ...preRecordForm,
+      category_id: e.target.value,
+    }));
+  };
+
+  const handleTransType = ({ colorTrans }) => {
+    setRecordForm((preRecordForm) => ({
+      ...preRecordForm,
+      transaction_type: colorTrans ? "EXP" : "INC",
+    }));
+  };
   return (
     <div>
       <div className=" flex justify-between bg-base-200 rounded-full">
@@ -117,13 +134,18 @@ export const RightInput = ({
 
         <label className="flex flex-col">
           Category
-          <select className="mt-2 select  bg-base-200 ">
+          <select
+            className="mt-2 select  bg-base-200"
+            onChange={handleSelected}
+          >
             <option disabled selected>
               Choose
             </option>
-            <option>Normal Apple</option>
-            <option>Normal Orange</option>
-            <option>Normal Tomato</option>
+            {catDatas?.map(({ cat_name, id }, idx) => (
+              <option value={id} key={idx}>
+                {cat_name}
+              </option>
+            ))}
           </select>
         </label>
         <div className="flex gap-3">
@@ -150,12 +172,19 @@ export const RightInput = ({
 };
 
 export const LeftInput = () => {
+  const { setRecordForm } = useContext(RecordContext);
   return (
     <div className="flex flex-col p-4">
       <label>Description</label>
       <textarea
         className="textarea textarea-bordered bg-base-200 w-[360px] h-[280px]"
         placeholder="Write here"
+        onChange={(e) => {
+          setRecordForm((preRecordForm) => ({
+            ...preRecordForm,
+            name: e.target.value,
+          }));
+        }}
       ></textarea>
     </div>
   );

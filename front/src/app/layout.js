@@ -4,6 +4,7 @@ import { UserProvider } from "./context/mycontext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { DataProvider } from "./context/datacontext";
+import { RecordProvider } from "./context/addRecord-context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <UserProvider>
           <DataProvider>
-            {children}
+            <RecordProvider>{children}</RecordProvider>
             <ToastContainer />
           </DataProvider>
         </UserProvider>
