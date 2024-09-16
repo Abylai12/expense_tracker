@@ -22,11 +22,19 @@ export const RecordProvider = ({ children }) => {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(recordForm),
       });
+      if (!res.ok) {
+        console.log("error", res.status);
+      }
+
+      // Parse the JSON response
+      const data = await res.json();
+      console.log("Response data:", data);
     } catch (error) {
-      toast.error("Failed to sign in. Please try again.", { autoClose: 500 });
+      console.log("error", error);
     }
   };
   return (

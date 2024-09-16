@@ -4,8 +4,7 @@ import { DataContext } from "@/app/context/datacontext";
 import { useContext, useEffect, useState } from "react";
 
 const Modal = ({ showModal, closeModal, openModal }) => {
-  const { setRecordForm, recordForm, postRecordData } =
-    useContext(RecordContext);
+  const { recordForm, postRecordData } = useContext(RecordContext);
 
   const submitValue = () => {
     console.log("hrrr", recordForm);

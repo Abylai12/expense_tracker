@@ -7,7 +7,8 @@ const getCurrentCustomer = async (req, res) => {
       await sql`SELECT r.name, r.transaction_type, r.amount, date_part('day', r.created_at) d
 FROM records r
 INNER JOIN customers c ON r.customer_id = c.id
-WHERE c.id = ${id} `;
+WHERE c.id = ${id} 
+ORDER BY  r.created_at DESC `;
     res.status(200).json({ newestRecords });
   } catch (error) {
     res.status(400).json({ error });
@@ -16,10 +17,12 @@ WHERE c.id = ${id} `;
 const createRecord = async (req, res) => {
   const { id } = req.user;
   const { name, amount, transaction_type, category_id, date, time } = req.body;
-  const updated_at = date + "T" + time;
+  const update_at = date + "T" + time;
+  console.log(update_at);
+
   try {
     const data =
-      await sql`INSERT INTO records (name, amount, transaction_type, category_id, updated_at, customer_id) VALUES (${name}, ${amount}, ${transaction_type}, ${category_id}, ${updated_at}, ${id})`;
+      await sql`INSERT INTO records (name, amount, transaction_type, category_id, update_at, customer_id) VALUES (${name}, ${amount}, ${transaction_type}, ${category_id}, ${update_at}, ${id})`;
 
     res.status(201).json({ message: "User created successfully", data });
   } catch (error) {
