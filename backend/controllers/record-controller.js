@@ -14,10 +14,12 @@ WHERE c.id = ${id} `;
   }
 };
 const createRecord = async (req, res) => {
-  const user = req.body;
-  const columns = Object.keys(user);
+  const { id } = req.user;
+  const { name, amount, transaction_type, category_id, date, time } = req.body;
+  const updated_at = date + "T" + time;
   try {
-    const data = await sql`INSERT INTO records ${sql(user, columns)}`;
+    const data =
+      await sql`INSERT INTO records (name, amount, transaction_type, category_id, updated_at, customer_id) VALUES (${name}, ${amount}, ${transaction_type}, ${category_id}, ${updated_at}, ${id})`;
 
     res.status(201).json({ message: "User created successfully", data });
   } catch (error) {

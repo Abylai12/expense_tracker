@@ -9,7 +9,7 @@ const {
 
 const router = Router();
 
-router.route("/stat").get(auth, getCurrentCustomer).post(createRecord);
+router.route("/stat").get(auth, getCurrentCustomer).post(auth, createRecord);
 
 router.route("/:id").put(updateRecord).delete(deleteRecord);
 

@@ -1,17 +1,16 @@
 "use client";
 import { RecordContext } from "@/app/context/addRecord-context";
 import { DataContext } from "@/app/context/datacontext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
-const Modal = ({
-  showModal,
-  closeModal,
-  openModal,
-  handleChange,
-  form,
-  submitValue,
-}) => {
-  const [colorTrans, setColorTrans] = useState(false);
+const Modal = ({ showModal, closeModal, openModal }) => {
+  const { setRecordForm, recordForm, postRecordData } =
+    useContext(RecordContext);
+
+  const submitValue = () => {
+    console.log("hrrr", recordForm);
+    postRecordData();
+  };
   return (
     <div className="">
       <button
@@ -46,18 +45,13 @@ const Modal = ({
               </button>
             </div>
             <div className="flex">
-              <RightInput
-                form={form}
-                handleChange={handleChange}
-                setColorTrans={setColorTrans}
-                colorTrans={colorTrans}
-              />
+              <RightInput />
               <LeftInput />
             </div>
             <div className="modal-action justify-center">
               <button
                 className={`font-normal text-base py-2 px-14 rounded-[20px] ${
-                  colorTrans
+                  recordForm.transaction_type === "EXP"
                     ? "bg-blue-700 text-white "
                     : "bg-green-700 text-white "
                 }`}
@@ -74,14 +68,10 @@ const Modal = ({
 };
 export default Modal;
 
-export const RightInput = ({
-  form,
-  handleChange,
-  setColorTrans,
-  colorTrans,
-}) => {
+export const RightInput = () => {
   const { catDatas } = useContext(DataContext);
-  const { setRecordForm } = useContext(RecordContext);
+  const { setRecordForm, recordForm } = useContext(RecordContext);
+
   const handleSelected = (e) => {
     setRecordForm((preRecordForm) => ({
       ...preRecordForm,
@@ -89,32 +79,68 @@ export const RightInput = ({
     }));
   };
 
-  const handleTransType = ({ colorTrans }) => {
+  const handleExpense = (value) => {
     setRecordForm((preRecordForm) => ({
       ...preRecordForm,
-      transaction_type: colorTrans ? "EXP" : "INC",
+      transaction_type: value,
     }));
   };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setRecordForm((prevRecordForm) => ({
+      ...prevRecordForm,
+      [name]: value,
+    }));
+  };
+  // const handleDate = (e) => {
+  //   const { name, value } = e.target;
+  //   if (name === "date") {
+  //     setDateTime((preForm) => ({
+  //       ...preForm,
+  //       [name]: value,
+  //     }));
+  //   } else {
+  //     setDateTime((preForm) => ({
+  //       ...preForm,
+  //       [name]: value,
+  //     }));
+  //   }
+  //   console.log(dateTime);
+  //   const { date, time } = dateTime;
+  //   const result = date + "T" + time;
+  //   if (result !== "T")
+
+  // };
+  // const handleTime = (e) => {
+  //   const { name, value } = e.target;
+  //   setRecordForm((prevRecordForm) => ({
+  //     ...prevRecordForm,
+  //     [name]: value,
+  //   }));
+  //   console.log("time", e.target.value);
+  // };
+  // console.log("type", recordForm);
   return (
     <div>
       <div className=" flex justify-between bg-base-200 rounded-full">
         <button
           className={`font-normal   text-base py-2 px-14 rounded-[20px] ${
-            colorTrans ? "bg-blue-700 text-white " : ""
+            recordForm.transaction_type === "EXP"
+              ? "bg-blue-700 text-white "
+              : ""
           }`}
-          onClick={() => {
-            setColorTrans(true);
-          }}
+          onClick={() => handleExpense("EXP")}
         >
           Expense
         </button>
         <button
           className={`font-normal  text-base py-2 px-14 rounded-[20px] ${
-            colorTrans ? "" : "bg-green-700 text-white "
+            recordForm.transaction_type === "INC"
+              ? "bg-green-700 text-white "
+              : ""
           }`}
-          onClick={() => {
-            setColorTrans(false);
-          }}
+          onClick={() => handleExpense("INC")}
         >
           Income
         </button>
@@ -127,7 +153,7 @@ export const RightInput = ({
             className="grow bg-base-200 "
             placeholder="₮ 000.00"
             name="amount"
-            value={form.amount}
+            value={recordForm.amount}
             onChange={handleChange}
           />
         </label>
@@ -138,9 +164,7 @@ export const RightInput = ({
             className="mt-2 select  bg-base-200"
             onChange={handleSelected}
           >
-            <option disabled selected>
-              Choose
-            </option>
+            <option disabled>Choose</option>
             {catDatas?.map(({ cat_name, id }, idx) => (
               <option value={id} key={idx}>
                 {cat_name}
@@ -155,6 +179,14 @@ export const RightInput = ({
               type="date"
               placeholder="Type here"
               className=" mt-2 input input-bordered w-full max-w-xs"
+              name="date"
+              value={recordForm.date}
+              onChange={(e) =>
+                setRecordForm((preForm) => ({
+                  ...preForm,
+                  date: e.target.value,
+                }))
+              }
             />
           </label>
           <label className="flex-1">
@@ -163,6 +195,14 @@ export const RightInput = ({
               type="time"
               placeholder="Type here"
               className="mt-2 input input-bordered w-full max-w-xs"
+              name="time"
+              value={recordForm.time}
+              onChange={(e) =>
+                setRecordForm((preForm) => ({
+                  ...preForm,
+                  time: e.target.value,
+                }))
+              }
             />
           </label>
         </div>
