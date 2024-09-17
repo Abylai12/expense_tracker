@@ -1,3 +1,4 @@
+import { iconsCat } from "@/app/utility/icons";
 import React from "react";
 
 const StatRecord = ({ newest, typeTrans, searchValue }) => {
@@ -37,7 +38,7 @@ const StatRecord = ({ newest, typeTrans, searchValue }) => {
                   transaction_type === "INC" ? "bg-blue-700" : "bg-red-700"
                 }`}
               >
-                <img src="./images/Vector.png" alt="img" />
+                <>{iconsCat.food}</>
               </div>
               <div className="ml-4 text-base">
                 <h2>{name}</h2>

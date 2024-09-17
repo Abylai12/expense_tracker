@@ -1,54 +1,20 @@
 import { DataContext } from "@/app/context/datacontext";
+import { catColor } from "@/app/utility/colors";
 import React, { useContext, useState } from "react";
 
-const Colors = () => {
-  const { catForm, setCatForm } = useContext(DataContext);
+const Colors = ({ setCatForm }) => {
   const [color, setColor] = useState(null);
-  const colors = [
-    {
-      name: "green",
-      value: "#065535",
-    },
-    {
-      name: "blue",
-      value: "#0000ff",
-    },
-    {
-      name: "red",
-      value: "#ff0000",
-    },
-    {
-      name: "yellow",
-      value: "#ffd700",
-    },
-    {
-      name: "orange",
-      value: "#ffa500",
-    },
-    {
-      key: "lavender",
-      value: "#ccccff",
-    },
-    {
-      name: "grey",
-      value: "#dddddd",
-    },
-    {
-      name: "purple",
-      value: "#800080",
-    },
-  ];
 
-  const handleClick = (idx) => {
+  const handleClick = (value, idx) => {
     setColor(idx);
-    setCatForm((preCatFrom) => ({
-      ...preCatFrom,
-      color: colors[idx].value,
+    setCatForm((preForm) => ({
+      ...preForm,
+      color: value,
     }));
   };
   return (
     <div className="flex gap-2">
-      {colors.map(({ value }, idx) => (
+      {Object.values(catColor).map((value, idx) => (
         <div
           key={idx}
           className={`w-10 h-10 hover:border hover:border-red-700 ${
@@ -58,7 +24,7 @@ const Colors = () => {
           <button
             className={`w-10 h-10 rounded-full  `}
             style={{ backgroundColor: value }}
-            onClick={() => handleClick(idx)}
+            onClick={() => handleClick(value, idx)}
           ></button>
         </div>
       ))}

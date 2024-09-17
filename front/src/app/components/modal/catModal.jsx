@@ -7,8 +7,13 @@ import Icons from "../icons/icons";
 import Colors from "../icons/colors";
 
 const CatModal = () => {
-  const { catModal, setCatModal, setCatForm } = useContext(DataContext);
+  const { catModal, setCatModal } = useContext(DataContext);
   const [openIcons, setOpenIcons] = useState(false);
+  const [catForm, setCatForm] = useState({
+    catName: "",
+    iconName: "",
+    color: "",
+  });
 
   const handleClick = () => {
     setOpenIcons((prevOpen) => !prevOpen);
@@ -16,12 +21,7 @@ const CatModal = () => {
   const handleSentValue = () => {
     setCatModal(false);
   };
-  const handleChange = (e) => {
-    setCatForm((preCatFrom) => ({
-      ...preCatFrom,
-      name: e.target.value,
-    }));
-  };
+  console.log("first", catForm);
   return (
     <div className="">
       <button
@@ -69,7 +69,12 @@ const CatModal = () => {
                   type="text"
                   placeholder="Type here"
                   className="input input-bordered w-full max-w-xs"
-                  onChange={(e) => handleChange(e)}
+                  onChange={(e) =>
+                    setCatForm((preCatFrom) => ({
+                      ...preCatFrom,
+                      catName: e.target.value,
+                    }))
+                  }
                 />
               </div>
               <button
@@ -85,8 +90,8 @@ const CatModal = () => {
       {openIcons && (
         <dialog open className="modal top-[200px]">
           <div className="modal-box">
-            <Icons />
-            <Colors />
+            <Icons setCatForm={setCatForm} />
+            <Colors setCatForm={setCatForm} />
           </div>
           <form method="dialog" className="modal-backdrop">
             <button>close</button>
