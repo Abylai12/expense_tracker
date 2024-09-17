@@ -5,6 +5,7 @@ import { DataContext } from "@/app/context/datacontext";
 import { useContext, useState } from "react";
 import Icons from "../icons/icons";
 import Colors from "../icons/colors";
+import { apiUrl } from "@/app/utility/utility";
 
 const CatModal = () => {
   const { catModal, setCatModal } = useContext(DataContext);
@@ -16,10 +17,34 @@ const CatModal = () => {
   });
 
   const handleClick = () => {
-    setOpenIcons((prevOpen) => !prevOpen);
+    setOpenIcons(true);
   };
   const handleSentValue = () => {
+    postCategory();
     setCatModal(false);
+  };
+
+  const postCategory = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await fetch(`${apiUrl}/category/customer`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(catForm),
+      });
+      if (!res.ok) {
+        console.log("error", res.status);
+      }
+
+      // Parse the JSON response
+      const data = await res.json();
+      console.log("Response data:", data);
+    } catch (error) {
+      console.log("error", error);
+    }
   };
   console.log("first", catForm);
   return (
@@ -92,24 +117,18 @@ const CatModal = () => {
           <div className="modal-box">
             <Icons setCatForm={setCatForm} />
             <Colors setCatForm={setCatForm} />
+            <button
+              className="btn flex justify-center w-full my-2"
+              onClick={() => {
+                setOpenIcons(false);
+              }}
+            >
+              close
+            </button>
           </div>
-          <form method="dialog" className="modal-backdrop">
-            <button>close</button>
-          </form>
         </dialog>
       )}
     </div>
   );
 };
 export default CatModal;
-
-{
-  /* <div
-className={`p-4 border absolute top-[200px]  ${
-  open ? "block" : "hidden"
-}`}
->
-<Icons />
-<Colors />
-</div> */
-}

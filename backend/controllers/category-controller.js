@@ -16,10 +16,13 @@ GROUP BY cat_name, cat.id`;
   }
 };
 const createCategory = async (req, res) => {
-  const user = req.body;
-  const columns = Object.keys(user);
+  const { catName, iconName, color } = req.body;
   try {
-    const data = await sql`INSERT INTO categories ${sql(user, columns)}`;
+    const data =
+      await sql`INSERT INTO categories(name,category_image, cat_color) VALUES(
+${catName},
+${iconName}, ${color}
+)`;
 
     res.status(201).json({ message: "User created successfully", data });
   } catch (error) {
