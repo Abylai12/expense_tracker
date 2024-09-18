@@ -27,7 +27,7 @@ const StatRecord = ({ newest, typeTrans, searchValue }) => {
             info?.name.toLowerCase().includes(searchValue.toLowerCase()) &&
             info?.transaction_type.includes(typeTrans)
         )
-        .map(({ name, d, amount, transaction_type }, idx) => (
+        .map(({ name, d, amount, transaction_type, cname }, idx) => (
           <div
             className="bg-base-100 flex justify-between items-center mb-3 px-6 py-4 rounded-xl "
             key={idx}
@@ -38,7 +38,8 @@ const StatRecord = ({ newest, typeTrans, searchValue }) => {
                   transaction_type === "INC" ? "bg-blue-700" : "bg-red-700"
                 }`}
               >
-                <>{iconsCat.food}</>
+                {console.log("CC", cname)}
+                <>{iconsCat[cname || "home"]}</>
               </div>
               <div className="ml-4 text-base">
                 <h2>{name}</h2>

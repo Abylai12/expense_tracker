@@ -164,9 +164,9 @@ export const RightInput = () => {
             onChange={handleSelected}
           >
             <option disabled>Choose</option>
-            {catDatas?.map(({ cat_name, id }, idx) => (
+            {catDatas?.map(({ name, id }, idx) => (
               <option value={id} key={idx}>
-                {cat_name}
+                {name}
               </option>
             ))}
           </select>

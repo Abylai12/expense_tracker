@@ -5,14 +5,14 @@ import { FaPlaneDeparture } from "react-icons/fa";
 import { FaHospitalUser } from "react-icons/fa";
 import { MdLocalMovies } from "react-icons/md";
 export const iconsCat = {
-  home: <FaHome />,
-  food: <MdRestaurant />,
-  shopping: <FaShoppingBag />,
-  transportation: <FaCar />,
-  investment: <MdCurrencyExchange />,
-  plane: <FaPlaneDeparture />,
-  hospital: <FaHospitalUser />,
-  cinema: <MdLocalMovies />,
+  home: <FaHome className="text-white" />,
+  food: <MdRestaurant className="text-white" />,
+  shopping: <FaShoppingBag className="text-white" />,
+  transportation: <FaCar className="text-white" />,
+  investment: <MdCurrencyExchange className="text-white" />,
+  plane: <FaPlaneDeparture className="text-white" />,
+  hospital: <FaHospitalUser className="text-white" />,
+  cinema: <MdLocalMovies className="text-white" />,
 };
 
 // export const catIcons = [

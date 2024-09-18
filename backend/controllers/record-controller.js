@@ -4,9 +4,10 @@ const getCurrentCustomer = async (req, res) => {
   const { id } = req.user;
   try {
     const newestRecords =
-      await sql`SELECT r.name, r.transaction_type, r.amount, date_part('day', r.created_at) d
+      await sql`SELECT r.name, r.transaction_type,  cat.category_image cname, r.amount, date_part('day', r.created_at) d
 FROM records r
 INNER JOIN customers c ON r.customer_id = c.id
+INNER JOIN categories cat ON cat.id=r.category_id 
 WHERE c.id = ${id} 
 ORDER BY  r.created_at DESC `;
     res.status(200).json({ newestRecords });

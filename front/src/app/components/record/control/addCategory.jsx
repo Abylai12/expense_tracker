@@ -11,16 +11,14 @@ const AddCategory = () => {
         <button>clear</button>
       </div>
       <div className=" ml-4">
-        {catDatas?.map(({ cat_name }, idx) => (
+        {catDatas?.map(({ name }, idx) => (
           <div className="flex items-center" key={idx}>
             <img
               src="./images/catImg.png"
               alt="img"
               className="w-[19px] h-[14px]"
             />
-            <div className="collapse-title text-base font-normal">
-              {cat_name}
-            </div>
+            <div className="collapse-title text-base font-normal">{name}</div>
           </div>
         ))}
 

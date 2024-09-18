@@ -1,14 +1,9 @@
 const sql = require("../config/db");
 
 const getCustomerCategory = async (req, res) => {
-  const { id } = req.user;
   try {
-    const categories = await sql`SELECT  cat.name as cat_name, cat.id 
-FROM records r 
-INNER JOIN customers c ON r.customer_id=c.id 
-INNER JOIN categories cat ON cat.id=r.category_id 
-WHERE c.id=${id}
-GROUP BY cat_name, cat.id`;
+    const categories =
+      await sql`SELECT name, id, cat_color, category_image FROM categories`;
     console.log("data:", categories);
     res.status(200).json({ categories });
   } catch (error) {
@@ -16,6 +11,7 @@ GROUP BY cat_name, cat.id`;
   }
 };
 const createCategory = async (req, res) => {
+  const { id } = req.user;
   const { catName, iconName, color } = req.body;
   try {
     const data =
@@ -29,6 +25,12 @@ ${iconName}, ${color}
     res.status(401).json({ error });
   }
 };
+// SELECT  cat.name as cat_name, cat.id
+// FROM records r
+// INNER JOIN customers c ON r.customer_id=c.id
+// INNER JOIN categories cat ON cat.id=r.category_id
+// WHERE c.id=${id}
+// GROUP BY cat_name, cat.id
 const updateCategory = async (req, res) => {
   const { id } = req.params;
   const user = req.body;
