@@ -2,6 +2,15 @@ import { iconsCat } from "@/app/utility/icons";
 import React from "react";
 
 const StatRecord = ({ newest, typeTrans, searchValue }) => {
+  const formatDate = (data) => {
+    const date = new Date(data);
+
+    const month = date.getUTCMonth() + 1;
+    const day = date.getUTCDate();
+    const hour = date.getUTCHours();
+
+    return `${month}-${day} ${hour}:00`;
+  };
   return (
     <div className="w-full">
       <div className="flex justify-between mb-4">
@@ -38,12 +47,12 @@ const StatRecord = ({ newest, typeTrans, searchValue }) => {
                   transaction_type === "INC" ? "bg-blue-700" : "bg-red-700"
                 }`}
               >
-                {console.log("CC", cname)}
                 <>{iconsCat[cname || "home"]}</>
               </div>
               <div className="ml-4 text-base">
                 <h2>{name}</h2>
-                <p className="text-gray-500 text-sm">{d}</p>
+
+                <p className="text-gray-500 text-sm">{formatDate(d)}</p>
               </div>
             </div>
             <p
@@ -51,7 +60,7 @@ const StatRecord = ({ newest, typeTrans, searchValue }) => {
                 transaction_type === "INC" ? "text-green-500" : "text-red-500"
               }`}
             >
-              {amount}
+              {new Intl.NumberFormat().format(amount)} ₮
             </p>
           </div>
         ))}

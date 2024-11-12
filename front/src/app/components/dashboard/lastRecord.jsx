@@ -1,6 +1,15 @@
 import React from "react";
 
-const LastRecord = ({ name, amount, transaction_type }) => {
+const LastRecord = ({ name, amount, transaction_type, created_at }) => {
+  const formatDate = (data) => {
+    const date = new Date(data);
+
+    const month = date.getUTCMonth() + 1;
+    const day = date.getUTCDate();
+    const hour = date.getUTCHours();
+
+    return `${month}-${day} ${hour}:00`;
+  };
   return (
     <div className="border-b py-3">
       <div className="flex justify-between items-center">
@@ -8,7 +17,7 @@ const LastRecord = ({ name, amount, transaction_type }) => {
           <img src="./images/homeimage.png" alt="img" />
           <div className="ml-4 text-base">
             <h2>{name}</h2>
-            <p className="text-gray-500 text-sm">date</p>
+            <p className="text-gray-500 text-sm">{formatDate(created_at)}</p>
           </div>
         </div>
         <p
@@ -16,7 +25,7 @@ const LastRecord = ({ name, amount, transaction_type }) => {
             transaction_type === "INC" ? "text-green-500" : "text-red-500"
           }`}
         >
-          {amount}
+          {new Intl.NumberFormat().format(amount)} ₮
         </p>
       </div>
     </div>

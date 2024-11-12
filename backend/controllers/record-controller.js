@@ -4,7 +4,7 @@ const getCurrentCustomer = async (req, res) => {
   const { id } = req.user;
   try {
     const newestRecords =
-      await sql`SELECT r.name, r.transaction_type,  cat.category_image cname, r.amount, date_part('day', r.created_at) d
+      await sql`SELECT r.name, r.transaction_type,  cat.category_image cname, r.amount,  r.created_at d
 FROM records r
 INNER JOIN customers c ON r.customer_id = c.id
 INNER JOIN categories cat ON cat.id=r.category_id 
@@ -19,13 +19,12 @@ const createRecord = async (req, res) => {
   const { id } = req.user;
   const { name, amount, transaction_type, category_id, date, time } = req.body;
   const update_at = date + "T" + time;
-  console.log(update_at);
 
   try {
     const data =
       await sql`INSERT INTO records (name, amount, transaction_type, category_id, update_at, customer_id) VALUES (${name}, ${amount}, ${transaction_type}, ${category_id}, ${update_at}, ${id})`;
 
-    res.status(201).json({ message: "User created successfully", data });
+    res.status(201).json({ message: "category created successfully", data });
   } catch (error) {
     res.status(401).json({ error });
   }
@@ -39,7 +38,7 @@ const updateRecord = async (req, res) => {
       user,
       columns
     )} WHERE id = ${id}`;
-    res.status(200).json({ message: "User updated succesfully", data });
+    res.status(200).json({ message: "Category updated succesfully", data });
   } catch (error) {
     console.error("Error updating user:", error);
     res.status(400).json({ error: "failed to update user" });

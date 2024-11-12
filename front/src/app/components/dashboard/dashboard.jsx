@@ -47,7 +47,7 @@ const Dashboard = () => {
     <div className=" bg-gray-100">
       <div className="max-w-[1200px] m-auto py-8">
         <div className="flex justify-between">
-          <WalletCard />
+          <WalletCard total={total} />
           {total.map(({ sum, transaction_type }, idx) => (
             <Card
               key={idx}
@@ -60,15 +60,18 @@ const Dashboard = () => {
           <CardStat transAmount={transAmount} dataPie={dataPie} />
         </div>
         <div>
-          <h2>latestFiveRecords</h2>
-          {latestFive.map(({ name, amount, transaction_type }, idx) => (
-            <LastRecord
-              key={idx}
-              name={name}
-              amount={amount}
-              transaction_type={transaction_type}
-            />
-          ))}
+          <h2 className="text-bold text-2xl p-4">Latest Five Records</h2>
+          {latestFive.map(
+            ({ name, amount, transaction_type, created_at }, idx) => (
+              <LastRecord
+                key={idx}
+                created_at={created_at}
+                name={name}
+                amount={amount}
+                transaction_type={transaction_type}
+              />
+            )
+          )}
         </div>
       </div>
     </div>

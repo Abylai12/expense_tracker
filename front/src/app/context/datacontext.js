@@ -13,7 +13,7 @@ export const DataProvider = ({ children }) => {
 
   const getCurrentCustomerRecords = async () => {
     const token = localStorage.getItem("token");
-    console.log("token", token);
+
     try {
       const response = await fetch(`${apiUrl}/record/stat`, {
         headers: { Authorization: `Bearer ${token}` },

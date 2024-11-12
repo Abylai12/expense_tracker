@@ -16,8 +16,16 @@ const Card = ({ sum, transType }) => {
   return (
     <div className=" card bg-base-100 w-96 shadow-xl">
       <div className="card-body">
-        <h2 className="card-title border-b py-4 ">Your income</h2>
-        <p> {sum} ₮</p>
+        <h2 className="card-title border-b py-4 ">
+          Your {transType === "income" ? "income" : "expense"}
+        </h2>
+        <p
+          className={`font-bold text-2xl ${
+            transType === "income" ? "text-green-400" : "text-red-400"
+          }`}
+        >
+          {sum} ₮
+        </p>
         <p className="">Your {transType} amount</p>
         <div className="">info from last month</div>
       </div>

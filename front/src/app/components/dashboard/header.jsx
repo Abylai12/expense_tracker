@@ -10,7 +10,6 @@ const Header = () => {
   const router = useRouter();
   const { user, currentCustomerData, openModal, setModalOpen } =
     useContext(UserContext);
-  const { name } = user;
 
   const [form, setForm] = useState({
     name: "",
@@ -63,8 +62,6 @@ const Header = () => {
           form={form}
           handleChange={handleChange}
         />
-
-        <h1>{name}</h1>
         <div className="avatar w-10 h-10">
           <div className="ring-primary ring-offset-base-100 w-24 rounded-full ring ring-offset-2">
             <img
@@ -75,6 +72,12 @@ const Header = () => {
             />
           </div>
         </div>
+        <Link
+          className="btn btn-outline btn-primary hover:bg-primary hover:text-white"
+          href="/"
+        >
+          Log Out
+        </Link>
       </div>
     </div>
   );

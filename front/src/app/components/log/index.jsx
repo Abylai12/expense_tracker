@@ -30,7 +30,7 @@ const LoggingPage = () => {
   const postCustomerData = async () => {
     const { email, password } = form;
     if (!email || !password) {
-      return console.log("password aldaa"); // Stop the function if any field is empty
+      return toast.warning("Аль нэг талбар хоосон байна");
     }
     const user = {
       email,
@@ -47,21 +47,22 @@ const LoggingPage = () => {
         body: JSON.stringify(user),
       });
       if (res.status === 404) {
-        toast.error("burtgelgui hereglegsh bn", { autoClose: 500 });
+        toast.error("Бүртгэлгүй хэрэглэгч байна, бүртгүүлнэ үү", {
+          autoClose: 500,
+        });
       }
       if (res.status === 200) {
         const { token } = await res.json();
-        toast.success("User successfully signed in", { autoClose: 500 });
+        toast.success("Амжилттай нэвтэрлээ", { autoClose: 500 });
         localStorage.setItem("token", token);
         setIsLoading(false);
         router.push("/dashboard");
       } else {
-        console.error("Failed customer:", res.statusText);
-        toast.error("Failed to sign in. Please try again.");
+        toast.error("Дахин оролдно уу");
         setIsLoading(false);
       }
     } catch (error) {
-      toast.error("Failed to sign in. Please try again.", { autoClose: 500 });
+      toast.error(" Please try again.", { autoClose: 500 });
       setIsLoading(false);
     }
   };

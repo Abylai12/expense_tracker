@@ -1,7 +1,6 @@
 "use client";
 
 import { DataContext } from "@/app/context/datacontext";
-
 import { useContext, useState } from "react";
 import Icons from "../icons/icons";
 import Colors from "../icons/colors";
@@ -41,12 +40,12 @@ const CatModal = () => {
 
       // Parse the JSON response
       const data = await res.json();
-      console.log("Response data:", data);
+      console.log("res", data);
     } catch (error) {
       console.log("error", error);
     }
   };
-  console.log("first", catForm);
+
   return (
     <div className="">
       <button
@@ -88,11 +87,11 @@ const CatModal = () => {
             <div className="">
               <div className="flex gap-2">
                 <button className="btn" onClick={handleClick}>
-                  btn
+                  open icons
                 </button>
                 <input
                   type="text"
-                  placeholder="Type here"
+                  placeholder="Category name"
                   className="input input-bordered w-full max-w-xs"
                   onChange={(e) =>
                     setCatForm((preCatFrom) => ({
@@ -103,7 +102,7 @@ const CatModal = () => {
                 />
               </div>
               <button
-                className="font-normal text-base py-2 px-14 rounded-[20px] bg-green-700 w-full"
+                className="font-normal text-base py-2 px-14 rounded-[20px] m-2 bg-green-700 w-full"
                 onClick={handleSentValue}
               >
                 Add
@@ -113,7 +112,7 @@ const CatModal = () => {
         </dialog>
       )}
       {openIcons && (
-        <dialog open className="modal top-[200px]">
+        <dialog open className="modal mt-4 top-[200px]">
           <div className="modal-box">
             <Icons setCatForm={setCatForm} />
             <Colors setCatForm={setCatForm} />

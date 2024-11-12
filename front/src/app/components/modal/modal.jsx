@@ -7,8 +7,8 @@ const Modal = ({ showModal, closeModal, openModal }) => {
   const { recordForm, postRecordData } = useContext(RecordContext);
 
   const submitValue = () => {
-    console.log("hrrr", recordForm);
     postRecordData();
+    closeModal();
   };
   return (
     <div className="">

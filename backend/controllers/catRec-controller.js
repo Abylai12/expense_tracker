@@ -46,12 +46,12 @@ FROM (
         cat.name, DATE_TRUNC('week', r.created_at), color
 ) sub`;
     const latestFiveRecords =
-      await sql`    SELECT date_part('hour',r.created_at) w, r.name, r.amount, r.transaction_type
+      await sql`    SELECT date_part('hour',r.created_at) w, r.name, r.created_at, r.amount, r.transaction_type
     FROM records r 
     INNER JOIN customers c ON r.customer_id=c.id 
     WHERE c.id=${id} 
       ORDER BY
-  r.created_at
+  r.created_at DESC
     LIMIT 
     5`;
 

@@ -6,8 +6,6 @@ import { iconsCat } from "@/app/utility/icons";
 const Icons = ({ setCatForm }) => {
   const [select, setSelect] = useState(null);
 
-  // const [icon, setIcon] = useState(null);
-
   const handleClick = (value, idx) => {
     setCatForm((preForm) => ({
       ...preForm,

@@ -7,6 +7,7 @@ import { useState } from "react";
 import Login from "./login";
 import { useRouter } from "next/navigation";
 import { apiUrl } from "@/app/utility/utility";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const router = useRouter();
@@ -24,12 +25,11 @@ const SignUp = () => {
       ...prevForm,
       [name]: value,
     }));
-    console.log("handle", form);
   };
   const postCustomerData = async () => {
     const { name, email, password } = form;
     if (!name || !email || !password) {
-      return console.log("password aldaa");
+      return toast.warning("Хоосон талбар байж болохгүй");
     }
     const newCustomer = {
       name,
@@ -48,13 +48,14 @@ const SignUp = () => {
 
       if (res.ok) {
         const data = await res.json();
-        console.log("Customer created successfully:", data);
+        toast.success("Амжилттай бүртгэгдэлээ");
         router.push("/");
       } else {
         console.error("Failed to create customer:", res.statusText);
       }
     } catch (error) {
       console.error("Error occurred while creating customer:", error);
+      toast.warning("Please try again");
     }
   };
 
@@ -75,7 +76,6 @@ const SignUp = () => {
   const handleLogin = () => {
     type ? postCustomerData() : updateCustomerData();
   };
-  console.log("form", form);
 
   return (
     <div className="flex justify-center items-center flex-col h-screen">

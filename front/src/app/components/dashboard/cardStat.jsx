@@ -9,11 +9,9 @@ import {
   ArcElement,
 } from "chart.js";
 
-// Registering the necessary components
 ChartJS.register(Tooltip, LinearScale, BarElement, ArcElement, CategoryScale);
 
 const CardStat = ({ transAmount, dataPie }) => {
-  // Data for the chart
   const barLabels = transAmount?.reduce((pre, data) => {
     if (!pre.includes(`day-${data.w}`)) {
       pre.push(`day-${data.w}`);
@@ -30,7 +28,6 @@ const CardStat = ({ transAmount, dataPie }) => {
     .map((tr) => tr.sum);
 
   const datasPie = dataPie.map((info) => info.weekly_percentage);
-  const datasColor = dataPie.map((info) => info.color);
 
   const catNames = dataPie.map((info) => info.cat_name);
 
@@ -80,7 +77,7 @@ const CardStat = ({ transAmount, dataPie }) => {
         beginAtZero: true,
         border: { dash: [6, 6], display: true },
         grid: {
-          display: true, // Display grid lines for the y-axis
+          display: true,
         },
         ticks: {
           padding: 15,
@@ -90,7 +87,7 @@ const CardStat = ({ transAmount, dataPie }) => {
         beginAtZero: true,
         border: { display: true },
         grid: {
-          display: false, // Display grid lines for the y-axis
+          display: false,
         },
         ticks: {
           padding: 7,
@@ -111,7 +108,18 @@ const CardStat = ({ transAmount, dataPie }) => {
       {
         label: "My First Dataset",
         data: datasPie,
-        backgroundColor: datasColor,
+        backgroundColor: [
+          "#FF5733", // Vibrant Red
+          "#33FF57", // Bright Green
+          "#3357FF", // Deep Blue
+          "#FF33A8", // Hot Pink
+          "#FFA533", // Warm Orange
+          "#57FFF4", // Aqua Blue
+          "#8D33FF", // Purple
+          "#FF5733", // Red-Orange
+          "#FFE733", // Yellow
+          "#33FFF0", // Light Cyan
+        ],
         hoverOffset: 2,
       },
     ],

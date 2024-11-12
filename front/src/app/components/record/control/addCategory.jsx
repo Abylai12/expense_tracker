@@ -8,7 +8,6 @@ const AddCategory = () => {
     <div>
       <div className="flex justify-between">
         <h1 className="font-semibold text-base my-6">Category</h1>
-        <button>clear</button>
       </div>
       <div className=" ml-4">
         {catDatas?.map(({ name }, idx) => (
