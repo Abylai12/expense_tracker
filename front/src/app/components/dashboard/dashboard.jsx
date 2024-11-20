@@ -40,7 +40,7 @@ const Dashboard = () => {
       console.error("Error fetching user data:", error);
     }
   };
-  console.log("latestFive", latestFive);
+
   useEffect(() => {
     currentCustomerData();
   }, [refresh]);
