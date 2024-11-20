@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 const getAllCustomer = async (req, res) => {
   const { id } = req.user;
-  console.log("token", id);
+
   try {
     const [customer] =
       await sql`SELECT id, name , email, profile_img FROM customers WHERE id = ${id} `;
@@ -55,7 +55,7 @@ const deleteCustomer = async (req, res) => {
   try {
     const { id } = req.params;
     const data = await sql`DELETE FROM customers WHERE id=${id}`;
-    console.log("DATA", data);
+
     res.status(200).json({ message: "delete", deletedUser: data });
   } catch (error) {
     res.status(404).json({ message: error });

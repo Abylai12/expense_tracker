@@ -1,14 +1,71 @@
 "use client";
 import { RecordContext } from "@/app/context/addRecord-context";
 import { DataContext } from "@/app/context/datacontext";
+import { apiUrl } from "@/app/utility/utility";
 import { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const Modal = ({ showModal, closeModal, openModal }) => {
-  const { recordForm, postRecordData } = useContext(RecordContext);
+  const { setRefresh } = useContext(DataContext);
+  const [recordForm, setRecordForm] = useState({
+    name: "",
+    amount: "",
+    transaction_type: "",
+    category_id: "",
+    date: "",
+    time: "",
+  });
+  const postRecordData = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const { category_id, date, time, name, transaction_type, amount } =
+        recordForm;
+      console.log(category_id, date, time, name, transaction_type, amount);
+      if (
+        !name ||
+        !amount ||
+        !transaction_type ||
+        !category_id ||
+        !date ||
+        !time
+      ) {
+        return toast.warning("Талбарыг гүйцэт бөглөнө үү");
+      }
+      const res = await fetch(`${apiUrl}/record/stat`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(recordForm),
+      });
+      if (res.status === 200) {
+        toast.success("Амжилттай бүртгэгдэлээ");
+        setRecordForm({
+          name: "",
+          amount: "",
+          transaction_type: "",
+          category_id: "",
+          date: "",
+          time: "",
+        });
+        closeModal();
+        setRefresh((prev) => !prev);
+      }
+      if (!res.ok) {
+        console.error("error", res.status);
+      }
+
+      // Parse the JSON response
+      // const data = await res.json();
+      // console.log("Response data:", data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const submitValue = () => {
     postRecordData();
-    closeModal();
   };
   return (
     <div className="">
@@ -44,8 +101,14 @@ const Modal = ({ showModal, closeModal, openModal }) => {
               </button>
             </div>
             <div className="flex">
-              <RightInput />
-              <LeftInput />
+              <RightInput
+                recordForm={recordForm}
+                setRecordForm={setRecordForm}
+              />
+              <LeftInput
+                recordForm={recordForm}
+                setRecordForm={setRecordForm}
+              />
             </div>
             <div className="modal-action justify-center">
               <button
@@ -67,10 +130,10 @@ const Modal = ({ showModal, closeModal, openModal }) => {
 };
 export default Modal;
 
-export const RightInput = () => {
+export const RightInput = ({ recordForm, setRecordForm }) => {
   const { catDatas } = useContext(DataContext);
-  const { setRecordForm, recordForm } = useContext(RecordContext);
-
+  // const { setRecordForm, recordForm } = useContext(RecordContext);
+  // console.log("cat datas", catDatas);
   const handleSelected = (e) => {
     setRecordForm((preRecordForm) => ({
       ...preRecordForm,
@@ -163,7 +226,7 @@ export const RightInput = () => {
             className="mt-2 select  bg-base-200"
             onChange={handleSelected}
           >
-            <option disabled>Choose</option>
+            <option>Choose</option>
             {catDatas?.map(({ name, id }, idx) => (
               <option value={id} key={idx}>
                 {name}
@@ -210,8 +273,8 @@ export const RightInput = () => {
   );
 };
 
-export const LeftInput = () => {
-  const { setRecordForm } = useContext(RecordContext);
+export const LeftInput = ({ setRecordForm }) => {
+  // const { setRecordForm } = useContext(RecordContext);
   return (
     <div className="flex flex-col p-4">
       <label>Description</label>

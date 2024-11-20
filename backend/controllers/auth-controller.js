@@ -15,7 +15,7 @@ const signin = async (req, res) => {
         res.status(400).json({ message: "Not match user email or password" });
       } else {
         const token = jwt.sign({ id: user.id }, "JWT_TOKEN_PASS1234", {
-          expiresIn: "1h",
+          expiresIn: "4h",
         });
         res.status(200).json({ message: "success", token });
       }

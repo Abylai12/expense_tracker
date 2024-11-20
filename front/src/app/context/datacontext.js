@@ -10,6 +10,7 @@ export const DataProvider = ({ children }) => {
   const [newest, setNewest] = useState(null);
   const [catDatas, setCatDatas] = useState(null);
   const [catModal, setCatModal] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   const getCurrentCustomerRecords = async () => {
     const token = localStorage.getItem("token");
@@ -54,6 +55,8 @@ export const DataProvider = ({ children }) => {
         getCustomerCategories,
         catModal,
         setCatModal,
+        setRefresh,
+        refresh,
       }}
     >
       {children}

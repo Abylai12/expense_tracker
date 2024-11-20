@@ -136,9 +136,7 @@ const CardStat = ({ transAmount, dataPie }) => {
         </div>
       </div>
       <div className="card bg-base-100  w-[588px] h-[284px]">
-        <h1 className="border-b py-4 px-6 text-base font-semibold">
-          Income and Expense
-        </h1>
+        <h1 className="border-b py-4 px-6 text-base font-semibold">Expense</h1>
         <div className=" flex items-center h-full ">
           <div className="h-[156px] w-[156px] ml-2">
             <Doughnut data={datas} />

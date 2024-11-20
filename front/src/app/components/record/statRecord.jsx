@@ -23,11 +23,6 @@ const StatRecord = ({ newest, typeTrans, searchValue }) => {
             <img src="./images/right.png" alt="img" />
           </button>
         </div>
-        <select className="select select-bordered w-full max-w-xs">
-          <option>Newest</option>
-          <option>Han Solo</option>
-          <option>Greedo</option>
-        </select>
       </div>
       <h1 className="font-semibold text-base mb-3">Today</h1>
       {newest
@@ -47,7 +42,7 @@ const StatRecord = ({ newest, typeTrans, searchValue }) => {
                   transaction_type === "INC" ? "bg-blue-700" : "bg-red-700"
                 }`}
               >
-                <>{iconsCat[cname || "home"]}</>
+                <div className="text-white">{iconsCat[cname || "home"]}</div>
               </div>
               <div className="ml-4 text-base">
                 <h2>{name}</h2>

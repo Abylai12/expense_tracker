@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import Icons from "../icons/icons";
 import Colors from "../icons/colors";
 import { apiUrl } from "@/app/utility/utility";
+import { MdLocalMovies } from "react-icons/md";
 
 const CatModal = () => {
   const { catModal, setCatModal } = useContext(DataContext);

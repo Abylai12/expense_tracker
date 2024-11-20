@@ -2,7 +2,6 @@ const sql = require("../config/db");
 
 const getCatRecData = async (req, res) => {
   const { id } = req.user;
-  console.log("token", id);
 
   try {
     const totalTransType = await sql`SELECT r.transaction_type, SUM(r.amount) 

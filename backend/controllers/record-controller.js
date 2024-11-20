@@ -20,11 +20,12 @@ const createRecord = async (req, res) => {
   const { name, amount, transaction_type, category_id, date, time } = req.body;
   const update_at = date + "T" + time;
 
+  console.log("name", name, amount, transaction_type, category_id, date, time);
   try {
     const data =
       await sql`INSERT INTO records (name, amount, transaction_type, category_id, update_at, customer_id) VALUES (${name}, ${amount}, ${transaction_type}, ${category_id}, ${update_at}, ${id})`;
 
-    res.status(201).json({ message: "category created successfully", data });
+    res.status(200).json({ message: "category created successfully", data });
   } catch (error) {
     res.status(401).json({ error });
   }

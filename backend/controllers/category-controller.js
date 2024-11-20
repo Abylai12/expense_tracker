@@ -4,7 +4,7 @@ const getCustomerCategory = async (req, res) => {
   try {
     const categories =
       await sql`SELECT name, id, cat_color, category_image FROM categories`;
-    console.log("data:", categories);
+
     res.status(200).json({ categories });
   } catch (error) {
     res.status(400).json({ error });

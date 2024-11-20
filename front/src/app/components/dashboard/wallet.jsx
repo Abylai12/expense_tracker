@@ -23,7 +23,7 @@ const WalletCard = ({ total }) => {
         <div className="flex justify-between items-center">
           <div>
             <p className="font-normal text-base opacity-50 ">Cash</p>
-            {!getDif(total) < 0 ? (
+            {getDif(total) > 0 ? (
               <div className="font-semibold text-2xl text-green-400">
                 {getDif(total)}₮
               </div>

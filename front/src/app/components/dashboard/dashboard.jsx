@@ -1,13 +1,15 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Card from "./card";
 import CardStat from "./cardStat";
 import LastRecord from "./lastRecord";
 import WalletCard from "./wallet";
 import { apiUrl } from "@/app/utility/utility";
+import { DataContext } from "@/app/context/datacontext";
 
 const Dashboard = () => {
+  const { getCustomerCategories, refresh } = useContext(DataContext);
   const [transAmount, setTransAmount] = useState([]);
   const [dataPie, setDataPie] = useState([]);
   const [total, setTotal] = useState([]);
@@ -41,6 +43,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     currentCustomerData();
+  }, [refresh]);
+  useEffect(() => {
+    getCustomerCategories();
   }, []);
 
   return (
@@ -60,17 +65,23 @@ const Dashboard = () => {
           <CardStat transAmount={transAmount} dataPie={dataPie} />
         </div>
         <div>
-          <h2 className="text-bold text-2xl p-4">Latest Five Records</h2>
-          {latestFive.map(
-            ({ name, amount, transaction_type, created_at }, idx) => (
-              <LastRecord
-                key={idx}
-                created_at={created_at}
-                name={name}
-                amount={amount}
-                transaction_type={transaction_type}
-              />
-            )
+          {latestFive.length === 0 ? (
+            <div></div>
+          ) : (
+            <>
+              <h2 className="text-bold text-2xl p-4">Latest Five Records</h2>
+              {latestFive.map(
+                ({ name, amount, transaction_type, created_at }, idx) => (
+                  <LastRecord
+                    key={idx}
+                    created_at={created_at}
+                    name={name}
+                    amount={amount}
+                    transaction_type={transaction_type}
+                  />
+                )
+              )}
+            </>
           )}
         </div>
       </div>
