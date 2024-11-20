@@ -211,10 +211,12 @@ export const RightInput = ({ recordForm, setRecordForm }) => {
         <label className="py-3 px-4 rounded-lg bg-base-200 border-base-300 flex flex-col ">
           Amount
           <input
-            type="text"
+            type="number"
             className="grow bg-base-200 "
             placeholder="₮ 000.00"
             name="amount"
+            inputMode="decimal"
+            pattern="[0-9]*"
             value={recordForm.amount}
             onChange={handleChange}
           />
@@ -226,7 +228,7 @@ export const RightInput = ({ recordForm, setRecordForm }) => {
             className="mt-2 select  bg-base-200"
             onChange={handleSelected}
           >
-            <option>Choose</option>
+            <option disabled>Choose</option>
             {catDatas?.map(({ name, id }, idx) => (
               <option value={id} key={idx}>
                 {name}

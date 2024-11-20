@@ -40,7 +40,7 @@ const Dashboard = () => {
       console.error("Error fetching user data:", error);
     }
   };
-
+  console.log("latestFive", latestFive);
   useEffect(() => {
     currentCustomerData();
   }, [refresh]);
@@ -71,13 +71,17 @@ const Dashboard = () => {
             <>
               <h2 className="text-bold text-2xl p-4">Latest Five Records</h2>
               {latestFive.map(
-                ({ name, amount, transaction_type, created_at }, idx) => (
+                (
+                  { name, amount, transaction_type, created_at, cname },
+                  idx
+                ) => (
                   <LastRecord
                     key={idx}
                     created_at={created_at}
                     name={name}
                     amount={amount}
                     transaction_type={transaction_type}
+                    cname={cname}
                   />
                 )
               )}

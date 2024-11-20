@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none; /* Removes the arrows in WebKit browsers (Chrome, Safari) */
+  margin: 0; /* Optional: Remove extra spacing */
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Removes the arrows in Firefox */
+}
+
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -31,5 +41,3 @@ body {
     text-wrap: balance;
   }
 } */
-
-

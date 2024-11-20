@@ -6,9 +6,11 @@ import Icons from "../icons/icons";
 import Colors from "../icons/colors";
 import { apiUrl } from "@/app/utility/utility";
 import { MdLocalMovies } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const CatModal = () => {
-  const { catModal, setCatModal } = useContext(DataContext);
+  const { catModal, setCatModal, refresh, setRefresh } =
+    useContext(DataContext);
   const [openIcons, setOpenIcons] = useState(false);
   const [catForm, setCatForm] = useState({
     catName: "",
@@ -40,8 +42,10 @@ const CatModal = () => {
       }
 
       // Parse the JSON response
-      const data = await res.json();
-      console.log("res", data);
+      if (res.status === 200) {
+        toast.success("Амжилттай нэмэгдлээ ");
+        setRefresh((prev) => !prev);
+      }
     } catch (error) {
       console.log("error", error);
     }

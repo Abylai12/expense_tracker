@@ -7,9 +7,9 @@ import { MdLocalMovies } from "react-icons/md";
 export const iconsCat = {
   home: <FaHome />,
   food: <MdRestaurant />,
-  shopping: <FaShoppingBag className="text-black" />,
+  shopping: <FaShoppingBag className="text-white" />,
   transportation: <FaCar className="text-black" />,
-  investment: <MdCurrencyExchange className="text-black" />,
+  investment: <MdCurrencyExchange className="text-white" />,
   plane: <FaPlaneDeparture className="text-black" />,
   hospital: <FaHospitalUser className="text-black" />,
   cinema: <MdLocalMovies className="text-black" />,

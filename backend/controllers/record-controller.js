@@ -19,7 +19,7 @@ const createRecord = async (req, res) => {
   const { id } = req.user;
   const { name, amount, transaction_type, category_id, date, time } = req.body;
   const update_at = date + "T" + time;
-
+  console.log("id", id);
   console.log("name", name, amount, transaction_type, category_id, date, time);
   try {
     const data =
@@ -27,7 +27,8 @@ const createRecord = async (req, res) => {
 
     res.status(200).json({ message: "category created successfully", data });
   } catch (error) {
-    res.status(401).json({ error });
+    console.log("erroor", error);
+    res.status(404).json({ error });
   }
 };
 const updateRecord = async (req, res) => {

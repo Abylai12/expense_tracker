@@ -13,6 +13,7 @@ const getCustomerCategory = async (req, res) => {
 const createCategory = async (req, res) => {
   const { id } = req.user;
   const { catName, iconName, color } = req.body;
+  console.log(catName, iconName, color);
   try {
     const data =
       await sql`INSERT INTO categories(name,category_image, cat_color) VALUES(
@@ -20,7 +21,7 @@ ${catName},
 ${iconName}, ${color}
 )`;
 
-    res.status(201).json({ message: "User created successfully", data });
+    res.status(200).json({ message: "User created successfully", data });
   } catch (error) {
     res.status(401).json({ error });
   }

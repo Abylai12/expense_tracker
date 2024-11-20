@@ -30,7 +30,7 @@ const signup = async (req, res) => {
   try {
     const data =
       await sql`INSERT INTO customers (email, name, password) VALUES(${email}, ${name}, ${hashedPassword})`;
-    console.log("data:", data);
+
     res.status(201).json({ data });
   } catch (error) {
     res.status(401).json({ error });

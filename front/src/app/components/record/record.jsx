@@ -6,6 +6,7 @@ import { DataContext } from "@/app/context/datacontext";
 
 const Record = () => {
   const {
+    refresh,
     newest,
     getCurrentCustomerRecords,
     getCustomerCategories,
@@ -16,7 +17,7 @@ const Record = () => {
   useEffect(() => {
     getCurrentCustomerRecords();
     getCustomerCategories();
-  }, []);
+  }, [refresh]);
   return (
     <div className="bg-gray-100 pt-8 pb-[132px]">
       <div className="flex gap-8 max-w-[1200px] m-auto ">
